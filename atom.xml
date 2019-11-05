@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MyBlog#Rukawahe#</title>
+  
+  <subtitle>Pursuit of excellence...</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-11-05T14:43:43.642Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Rukawahe</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2019/11/05/test-1/"/>
+    <id>http://yoursite.com/2019/11/05/test-1/</id>
+    <published>2019-11-05T14:43:03.000Z</published>
+    <updated>2019-11-05T14:43:43.642Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个测试！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一个测试！&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/11/05/%E5%93%88%E5%B8%8C%E8%A1%A8%E5%88%9D%E6%AD%A5/"/>
+    <id>http://yoursite.com/2019/11/05/哈希表初步/</id>
+    <published>2019-11-05T08:57:14.370Z</published>
+    <updated>2019-10-16T09:16:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，<br>再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。</p><p>单独链接</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、链接更容易实现。</span><br><span class="line">2、在链接中，哈希表永远不会填满。</span><br><span class="line">3、当不知道可以插入或者删除多少个密匙和多少频率时，通常使用链接。</span><br><span class="line">4、链接的缓存性能不佳，容易浪费空间。</span><br></pre></td></tr></table></figure><p>开放式寻址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、开放式寻址需要更多的计算，同时表可能已满。</span><br><span class="line">2、开放式寻址需要格外的小心，以避免聚类和负载因子。</span><br><span class="line">3、当知道键的频率和数量时，使用开放式寻址。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、线性探测具有最佳的缓存性能，但是受到群集的影响，线性探测的另一优点是易于计算。</span><br><span class="line">2、在缓存性能方面，二次探测介于二者之间。</span><br><span class="line">3、双散列具有较差的缓存性能，但是没有群集。双散列需要更多的计算时间，因为需要计算两个散列函数。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，&lt;br&gt;再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。&lt;/p&gt;
+&lt;p&gt;单独链接&lt;/p&gt;
+&lt;figure class=&quot;highlight pla
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2019/11/05/hello-world/"/>
+    <id>http://yoursite.com/2019/11/05/hello-world/</id>
+    <published>2019-11-05T08:57:14.330Z</published>
+    <updated>2017-10-28T00:39:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>pair关系容器的运用</title>
+    <link href="http://yoursite.com/2019/11/03/pair%E5%85%B3%E7%B3%BB%E5%AE%B9%E5%99%A8%E7%9A%84%E8%BF%90%E7%94%A8/"/>
+    <id>http://yoursite.com/2019/11/03/pair关系容器的运用/</id>
+    <published>2019-11-03T02:27:34.000Z</published>
+    <updated>2019-11-03T03:27:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>c++pair类型定义在utility头文件中定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;T1,T2&gt;p1;创建一个空的pair对象，它的两个元素类型分别是T1，T2</span><br></pre></td></tr></table></figure></p><h2 id="1、pair的创建和初始化"><a href="#1、pair的创建和初始化" class="headerlink" title="1、pair的创建和初始化"></a>1、pair的创建和初始化</h2><p>pair包含两个数值，与容器一样，在创建对象1时，必须提供两个类型名(类型名不必相同)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string,string&gt;A;</span><br><span class="line">pair&lt;string,int&gt;B;</span><br><span class="line">pair&lt;string,vector&lt;int&gt;&gt;C;</span><br></pre></td></tr></table></figure></p><p>当然也可以在定义时初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string,string&gt;A(&quot;James&quot;,&quot;Joy&quot;);</span><br></pre></td></tr></table></figure></p><p>pair类型的使用相当的繁琐，如果定义多个相同的pair类型对象，可以使用typedef简化声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef pair&lt;string,string&gt; A;</span><br><span class="line">A B(&quot;Jordan&quot;,&quot;curry&quot;);</span><br><span class="line">A C(&quot;James&quot;,&quot;kobe&quot;);</span><br></pre></td></tr></table></figure></p><h2 id="2、pair对象的操作"><a href="#2、pair对象的操作" class="headerlink" title="2、pair对象的操作"></a>2、pair对象的操作</h2><p>对于pair类，可以直接访问其数据成员：其成员都是公有的，分别命名为first和second，只需要使用普通的点操作符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A.first==&quot;James&quot; &amp;&amp; B.second==&quot;curry&quot;</span><br></pre></td></tr></table></figure></p><h2 id="3、生成新的pair对象"><a href="#3、生成新的pair对象" class="headerlink" title="3、生成新的pair对象"></a>3、生成新的pair对象</h2><p>除了构造函数，标准库还定义了一个make_pair函数，由传递给它的两个实参生成一个新的pair对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string, string&gt; next_auth;</span><br><span class="line">string first,last;</span><br><span class="line">while(cin&gt;&gt;first&gt;&gt;last) &#123;</span><br><span class="line">    next_auth=make_pair(first,last);</span><br><span class="line">&#125;</span><br><span class="line">等同于</span><br><span class="line">next_auth=pair&lt;string,string&gt;(first,second)</span><br></pre></td></tr></table></figure></p><h2 id="4、例子"><a href="#4、例子" class="headerlink" title="4、例子"></a>4、例子</h2><p>编写程序读入一系列string和int型数据，将每一组存储在一个pair对象中，然后将这些pair对象存储在vector容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    pair&lt;string, int&gt;p;</span><br><span class="line">    typedef vector&lt; pair&lt;string, int&gt; &gt; VP;</span><br><span class="line">    VP vp;</span><br><span class="line">    while(cin&gt;&gt;p.first&gt;&gt;p.second)</span><br><span class="line">    &#123;</span><br><span class="line">        vp.push_back(make_pair(p.first,p.second));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    VP::iterator it;</span><br><span class="line">    for(it=vp.begin(); it!=vp.end(); it++)</span><br><span class="line">        cout&lt;&lt;it-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;it-&gt;second&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;c++pair类型定义在utility头文件中定义&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td
+      
+    
+    </summary>
+    
+    
+    
+      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>线段树概念及其应用</title>
+    <link href="http://yoursite.com/2019/10/27/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/"/>
+    <id>http://yoursite.com/2019/10/27/线段树概念及其应用/</id>
+    <published>2019-10-27T00:43:40.000Z</published>
+    <updated>2019-10-27T14:23:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题引出："><a href="#问题引出：" class="headerlink" title="问题引出："></a>问题引出：</h2><p>假如给出一组数组a[n],要求我们求出索引l到r的所有元素之和，其中0&lt;= l &lt;= r &lt;= n;另一个要求是，将数组的特定值修改为x。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>一种方法是进行从l到r的循环，计算给定范围的和，另外更新值只需要令a[i]=x即可。注意第一次操作的时间复杂度为O(n),第二次为O(1)。</p><p>第二种方案为再创建一个数组，数组每个元素表示从0到索引i的所有元素的和。该方法计算求和的时间复杂度为O(1),但更新的时间复杂度却为O(n)。</p><p>以上两种方案在元素个数不同的情况下各有利弊。而第三种方案<strong>线段树</strong>却可以在O(log n)的时间界内完成以上操作。</p><h2 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h2><p>线段树在区间信息的维护和查询方面运用得十分广泛，得益于它比普通查询更加高效的查询方式。</p><h2 id="线段树的表示形式"><a href="#线段树的表示形式" class="headerlink" title="线段树的表示形式"></a>线段树的表示形式</h2><p>一般而言，谈到树总会习惯性用链表指针的方式来建树表示节点的关系，但是在算法竞赛中，只要节点与节点的关系明晰，常常使用数组的方式来建树，这更容易理解和操作。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">表示方式：</span><br><span class="line">1、叶子节点是输入的元素的值</span><br><span class="line">2、每个非叶子节点代表也叶子节点的一些合并，代表该非叶子节点下的叶子节点之和。</span><br><span class="line">此处索引是从0开始。</span><br><span class="line">注意：除了最后一集外，每一级都填满。</span><br></pre></td></tr></table></figure><p><img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/segment-tree1.png" alt="avatar"></p><ul><li>输入形式<blockquote><p>输入数组{1、3、5、7、9、11}</p><p>线段树数组st[]={36、9、27、4、5、16、11、1、3、NULL、NULL、7、9、NULL、NULL}</p></blockquote></li></ul><h2 id="分配给段树的数组的总大小"><a href="#分配给段树的数组的总大小" class="headerlink" title="分配给段树的数组的总大小"></a>分配给段树的数组的总大小</h2><p>如果n是2的幂，则没有虚拟节点(空出来的节点),段树大小为2n-1。如果不是2<br>的幂次，则树的大小将为2x-1，其中x为大于n的2的最小幂。</p><h2 id="查询给定范围"><a href="#查询给定范围" class="headerlink" title="查询给定范围"></a>查询给定范围</h2><ul><li><p>求和算法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int getSum(node,l，r)&#123;</span><br><span class="line">   if(节点在l、r之间)</span><br><span class="line">    return节点的值</span><br><span class="line">  else if(节点在l、r外面)</span><br><span class="line">    return 0</span><br><span class="line">  else</span><br><span class="line">    return getSum(node的左孩子,l,r)+getSum(node的右孩子,l,r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>更新节点的值</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;问题引出：&quot;&gt;&lt;a href=&quot;#问题引出：&quot; class=&quot;headerlink&quot; title=&quot;问题引出：&quot;&gt;&lt;/a&gt;问题引出：&lt;/h2&gt;&lt;p&gt;假如给出一组数组a[n],要求我们求出索引l到r的所有元素之和，其中0&amp;lt;= l &amp;lt;= r &amp;lt;= n
+      
+    
+    </summary>
+    
+    
+    
+      <category term="--algorithm" scheme="http://yoursite.com/tags/algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于堆</title>
+    <link href="http://yoursite.com/2019/10/12/%E5%85%B3%E4%BA%8E%E5%A0%86/"/>
+    <id>http://yoursite.com/2019/10/12/关于堆/</id>
+    <published>2019-10-12T08:10:30.000Z</published>
+    <updated>2019-10-13T14:23:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>堆一般为二叉堆，它是一个完全二叉树，基于这个性质，我们采用数组表示堆会节省空间。<br>另外实现优先队列的方法是使用二叉查找树。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;堆一般为二叉堆，它是一个完全二叉树，基于这个性质，我们采用数组表示堆会节省空间。&lt;br&gt;另外实现优先队列的方法是使用二叉查找树。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+      <category term="--算法 --二叉树" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++new和delete用法总结</title>
+    <link href="http://yoursite.com/2019/09/21/c-new%E5%92%8Cdelete%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/09/21/c-new和delete用法总结/</id>
+    <published>2019-09-21T09:24:06.000Z</published>
+    <updated>2019-09-21T09:51:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这段时间在用练习数据结构的题目，碰到删除节点的问题。有些问题值得去探讨。</p><p>1、在c标准库里，一般是用free<br>函数进行动态释放内存空间，free掉了，这个节点的信息都没了，包括本身。<strong>但在c++使用delete函数却不一样</strong>，<strong>它的意思使代表删除p所指的目标（变量或对象），释放所指目标的堆空间，而不是删除p节点本身，p节点本身的地址空间还在，不过此时它变成了空指针。</strong></p><p>2、new/delete都是同时出现的。new开辟了存放类型的存储空间，返回指向该内存空间的地址。（即指针）</p><p>3、new/delete除了分配空间还会调用构造析构函数进行初始化与清理（清理成员）。</p><p>4、 delete只能释放堆空间。如果new返回的指针值丢失，则所分配的堆空间无法回收，称内存泄漏，同一空间重复释放也是危险的，因为该空间可能已另分配，所以必须妥善保存new返回的指针，以保证不发生内存泄漏，也必须保证不会重复释放堆内存空间。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这段时间在用练习数据结构的题目，碰到删除节点的问题。有些问题值得去探讨。&lt;/p&gt;
+&lt;p&gt;1、在c标准库里，一般是用free&lt;br&gt;函数进行动态释放内存空间，free掉了，这个节点的信息都没了，包括本身。&lt;strong&gt;但在c++使用delete函数却不一样&lt;/strong&gt;
+      
+    
+    </summary>
+    
+    
+    
+      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++拷贝构造函数和赋值运算符</title>
+    <link href="http://yoursite.com/2019/09/08/c-%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+    <id>http://yoursite.com/2019/09/08/c-拷贝构造函数和赋值运算符/</id>
+    <published>2019-09-08T03:13:06.000Z</published>
+    <updated>2019-09-25T08:22:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="c-拷贝构造函数"><a href="#c-拷贝构造函数" class="headerlink" title="c++拷贝构造函数"></a>c++拷贝构造函数</h2><h3 id="一、聊聊深拷贝和浅拷贝的问题"><a href="#一、聊聊深拷贝和浅拷贝的问题" class="headerlink" title="一、聊聊深拷贝和浅拷贝的问题"></a>一、聊聊深拷贝和浅拷贝的问题</h3><p>一般的，只要出现类复制的情况，就会调用拷贝构造函数。</p><blockquote><p>1、对象作为函数的参数，以值传递的方式传给函数</p></blockquote><blockquote><p>2、对象作为函数的返回值，以值的方式从函数返回</p></blockquote><blockquote><p>3、使用一个对象给另一个对象初始化</p></blockquote><h3 id="两个区别"><a href="#两个区别" class="headerlink" title="两个区别"></a><strong>两个区别</strong></h3><p>1  在未定义显示拷贝构造函数的情况下，系统会调用默认的拷贝函数——即浅拷贝，<br>它能够完成成员的一一复制。当数据成员中没有指针时，浅拷贝是可行的；但当数<br>据成员中有指针时，<strong>如果采用简单的浅拷贝，则两类中的两个指针将指向同一个地址</strong>，<br>当对象快结束时，会调用两次析构函数，而导致指针悬挂现象，所以，此时，必须采用深拷贝。</p><p>2 深拷贝与浅拷贝的区别就在于深拷贝会在堆内存中另外申请空间来储存数据，从而也就解决了指<br>针悬挂的问题。简而言之，当数据成员中有指针时，必须要用深拷贝。</p><p><strong>总结：</strong>深拷贝和浅拷贝的区别是在对象状态中包含其它对象的引用的时候，当拷贝一个对象时，<br>如果需要拷贝这个对象引用的对象，则是深拷贝，否则是浅拷贝。</p><h3 id="二、拷贝构造函数和赋值运算符"><a href="#二、拷贝构造函数和赋值运算符" class="headerlink" title="二、拷贝构造函数和赋值运算符"></a>二、拷贝构造函数和赋值运算符</h3><blockquote><p>1、 拷贝构造函数和赋值运算符的行为比较相似（即将一个对象的值复制给另一个对象），<br>但产生的结果却是不同的，即拷贝构造函数使用传入的值生成一个新的对象的实例，而<br>赋值运算符是将对象的值复制给已经存在的实例。</p></blockquote><blockquote><p>2、区分是调用拷贝构造函数还是赋值运算符，主要是否有新的对象产生。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person&#123;</span><br><span class="line">public:</span><br><span class="line">Person()&#123;&#125;</span><br><span class="line">Person(const Person&amp; p)&#123;</span><br><span class="line">cout&lt;&lt;&quot;copy constructor&quot;&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">Person&amp; operator=(constPerson&amp; p)&#123;</span><br><span class="line">cout &lt;&lt; &quot;assign&quot; &lt;&lt; endl;</span><br><span class="line">return *this;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">void f(Person p)&#123;</span><br><span class="line">return;</span><br><span class="line">&#125;</span><br><span class="line">Person f1()&#123;</span><br><span class="line">Person p;</span><br><span class="line">return p;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">Person p;</span><br><span class="line">Person p1 = p;//1  &quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">Person p2;</span><br><span class="line">p2 = p;//2  &quot;assign&quot;</span><br><span class="line"></span><br><span class="line">f(p2);//3&quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">p2 = f1();//4&quot;copy constructor&quot; and &quot;assign&quot;</span><br><span class="line"></span><br><span class="line">Person p3 = f1();//5 &quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>分析如下：</strong></p><p>1这是虽然使用了”=”，但是实际上使用对象p来创建一个新的对象p1。也就是产生了新的对象，所以调用的是拷贝构造函数。</p><p>2首先声明一个对象p2，然后使用赋值运算符”=”，将p的值复制给p2，显然是调用赋值运算符，为一个已经存在的对象赋值 。</p><p>3以值传递的方式将对象p2传入函数f内，调用拷贝构造函数构建一个函数f可用的实参。</p><p>4这条语句拷贝构造函数和赋值运算符都调用了。函数f1以值的方式返回一个Person对象，在返回时会调用拷贝构造函数创建一个临时对象tmp作为返回值；返回后调用赋值运算符将临时对象tmp赋值给p2.</p><p>5按照4的解释，应该是首先调用拷贝构造函数创建临时对象；然后再调用拷贝构造函数使用刚才创建的临时对象创建新的对象p3，也就是会调用两次拷贝构造函数。不过，编译器也没有那么傻，应该是直接调用拷贝构造函数使用返回值创建了对象p3。</p><p><strong>辨别构造函数、拷贝构造函数和赋值构造函数</strong></p><p>虽然三个函数的行为方式很相似，但是可以轻易地用以下方法辨别出来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象不存在的，且没用别的对象初始化的，就是调用了(默认)构造函数</span><br><span class="line"></span><br><span class="line">对象不存在的，且使用了别的对象初始化的，就是调用了拷贝构造函数</span><br><span class="line"></span><br><span class="line">对象存在的，且用别的对象来给它赋值的，就是赋值函数。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;c-拷贝构造函数&quot;&gt;&lt;a href=&quot;#c-拷贝构造函数&quot; class=&quot;headerlink&quot; title=&quot;c++拷贝构造函数&quot;&gt;&lt;/a&gt;c++拷贝构造函数&lt;/h2&gt;&lt;h3 id=&quot;一、聊聊深拷贝和浅拷贝的问题&quot;&gt;&lt;a href=&quot;#一、聊聊深拷贝和浅拷贝的问
+      
+    
+    </summary>
+    
+    
+      <category term="-c++" scheme="http://yoursite.com/categories/c/"/>
+    
+    
+      <category term="-c++ -五大函数" scheme="http://yoursite.com/tags/c-%E4%BA%94%E5%A4%A7%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++构造函数、拷贝构造函数等</title>
+    <link href="http://yoursite.com/2019/09/06/c-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%AD%89/"/>
+    <id>http://yoursite.com/2019/09/06/c-构造函数、拷贝构造函数等/</id>
+    <published>2019-09-06T11:58:13.000Z</published>
+    <updated>2019-09-22T07:15:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="c-构造函数、拷贝构造函数等五大函数"><a href="#c-构造函数、拷贝构造函数等五大函数" class="headerlink" title="c++构造函数、拷贝构造函数等五大函数"></a>c++构造函数、拷贝构造函数等五大函数</h1><p>为了更清晰了解之后的语法格式，在此之前，首先讲讲<strong>类成员的初始化</strong></p><p>定义一个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Fruit               //定义一个类，名字叫Fruit  </span><br><span class="line">&#123;  </span><br><span class="line">public:  </span><br><span class="line">    Fruit(const string &amp;name):Fname(name)&#123;&#125;  </span><br><span class="line">private:</span><br><span class="line"> const string Fname;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p><p>一般而言，有两种形式的初始化：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">Fruit(const string &amp;name):Fname(name)&#123;&#125;</span><br><span class="line">推荐使用此种构造方法，成员变量先初始化，再执行块。在这里先是执行了Fname(name),然后再把string name定义为const。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2</span><br><span class="line">Fruit(const string &amp;name):()&#123;</span><br><span class="line">    Fname=name;</span><br><span class="line">&#125;</span><br><span class="line">这里初始化后再对Fname=name进行赋值，则会提示不能给常量赋值的错误</span><br></pre></td></tr></table></figure><p>3<br>注意，在c++中，结构体和类的使用已经没有什么区别，所以结构体成员最好一开始就进行结构体成员初始化。形如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct Node</span><br><span class="line">&#123;</span><br><span class="line">object data;</span><br><span class="line">Node *next;</span><br><span class="line"></span><br><span class="line">Node(const object &amp; d=0,Node *n=NULL):data(d),next(n)&#123;&#125;//节点的构造函数</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;c-构造函数、拷贝构造函数等五大函数&quot;&gt;&lt;a href=&quot;#c-构造函数、拷贝构造函数等五大函数&quot; class=&quot;headerlink&quot; title=&quot;c++构造函数、拷贝构造函数等五大函数&quot;&gt;&lt;/a&gt;c++构造函数、拷贝构造函数等五大函数&lt;/h1&gt;&lt;p&gt;为了更清
+      
+    
+    </summary>
+    
+    
+    
+      <category term="-c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>const指针的理解</title>
+    <link href="http://yoursite.com/2019/09/03/const%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3/"/>
+    <id>http://yoursite.com/2019/09/03/const指针的理解/</id>
+    <published>2019-09-02T23:43:53.000Z</published>
+    <updated>2019-09-25T11:33:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这几天在学算法竞赛，突然常常碰见类似这样的函数体<code>(const vector&lt;int&gt;&amp; A)</code>,本来我一开始不明白为什么要用<strong>&amp;</strong> ,我也不太清楚<strong>const</strong>有什么作用。后来去查了些资料，发现<strong>const</strong>关键字是真的挺常用的，而后的<strong>&amp;</strong> 也是和<strong>const</strong>相关的。</p><p>以下就来举例出常见的几个<code>const</code>用法</p><h1 id="const-T"><a href="#const-T" class="headerlink" title="const  T"></a><code>const  T</code></h1><p>定义一个常量，声明的同时必须进行初始化，一旦声明之后该值就不能改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int i=5;</span><br><span class="line">const int i2=10;    //正确</span><br><span class="line">const int i3=i;    //正确</span><br><span class="line">/i2=20;             //错误，常量值不能改变</span><br><span class="line">/const int i4;      //错误，未被初始化</span><br></pre></td></tr></table></figure></p><h1 id="const-T-1"><a href="#const-T-1" class="headerlink" title="const T*"></a><code>const T*</code></h1><p>指向常量的指针，不能用于改变其所指向对象的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const int i=5;</span><br><span class="line">const int i2=10;</span><br><span class="line">const int* p=&amp;i;    //正确，指向一个const int对象，即i的地址</span><br><span class="line">/*p=10;             //错误，不能改变其所指向的对象。</span><br><span class="line">p=&amp;i2;              //正确，改变指针本身的值，此时p指向的是i2的地址。</span><br></pre></td></tr></table></figure></p><h1 id="const-int-和int-const的区别"><a href="#const-int-和int-const的区别" class="headerlink" title="const int*和int *const的区别"></a><code>const int*</code>和<code>int *const</code>的区别</h1><p>把指针定义未常量就是常量指针，也就是int *const类型，声明的同时必须进行初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const int*指针指向的对象不可改变，但可以改变指针本身的值</span><br><span class="line">const int i1=5;</span><br><span class="line">const int i2=10;</span><br><span class="line">const int* p=&amp;i1;</span><br><span class="line">/*p=20;         //错误，不能改变p所指对象的值</span><br><span class="line">p=&amp;i2           //正确，可以改变指针本身的值，即此时指针指向i2</span><br><span class="line"></span><br><span class="line">int* const 指针本身的值不可改变，但其指向的对象可以改变</span><br><span class="line">int v1=10;</span><br><span class="line">int v2=20;</span><br><span class="line">int* const p=&amp;v1;</span><br><span class="line">/p=&amp;v2;     //错误，不能改变p指针本身的值</span><br><span class="line">*p=30;      //正确，可以改变所指对象的值，此时v1=30</span><br></pre></td></tr></table></figure></p><h1 id="const-T-amp"><a href="#const-T-amp" class="headerlink" title="const T&amp;"></a><code>const T&amp;</code></h1><p>对常量的引用，称为常量引用，不能修改其绑定的值。</p><h1 id="在函数中的应用"><a href="#在函数中的应用" class="headerlink" title="在函数中的应用"></a>在函数中的应用</h1><h2 id="1-希望传入一个对象，又不想让函数体修改这个对象。"><a href="#1-希望传入一个对象，又不想让函数体修改这个对象。" class="headerlink" title="1 希望传入一个对象，又不想让函数体修改这个对象。"></a>1 希望传入一个对象，又不想让函数体修改这个对象。</h2><h3 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void xxx(const Data&amp; data)&#123;</span><br><span class="line">  cout&lt;&lt;data.value&lt;&lt;endl;</span><br><span class="line">  /data.value=5;    //错误，data是常量，不能改变修改的值</span><br><span class="line">&#125;</span><br><span class="line">该方式还有一个好处，就是在函数调用时传递的是对象的引用，而不是对象，减少函数调用时对象赋值的开销。</span><br></pre></td></tr></table></figure><h3 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void xxx(const Data* p)&#123;&#125;</span><br><span class="line">和方式1功能相同</span><br></pre></td></tr></table></figure><h1 id="对于常量函数"><a href="#对于常量函数" class="headerlink" title="对于常量函数"></a><strong>对于常量函数</strong></h1><p>1、C++中引入常量函数，是c++的一个特性，充分体现了c++的封装性。</p><p>2、C++中，为了防止类的数据成员被非法访问，将类的成员函数分成了两类，一类是常量成员函数（也被称为观察着）；另一类是非常量成员函数（也被成为变异者）。</p><p>3、在一个函数的签名后面加上关键字const后该函数就成了常量函数。对于常量函数，最关键的不同是编译器不允许其修改类的数据成员</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这几天在学算法竞赛，突然常常碰见类似这样的函数体&lt;code&gt;(const vector&amp;lt;int&amp;gt;&amp;amp; A)&lt;/code&gt;,本来我一开始不明白为什么要用&lt;strong&gt;&amp;amp;&lt;/strong&gt; ,我也不太清楚&lt;strong&gt;const&lt;/strong&gt;有
+      
+    
+    </summary>
+    
+    
+      <category term="-c++" scheme="http://yoursite.com/categories/c/"/>
+    
+    
+      <category term="-指针 -const关键字" scheme="http://yoursite.com/tags/%E6%8C%87%E9%92%88-const%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2019/09/01/test/"/>
+    <id>http://yoursite.com/2019/09/01/test/</id>
+    <published>2019-09-01T08:26:09.000Z</published>
+    <updated>2019-11-05T12:38:28.876Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个测试</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一个测试&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="-前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="-github" scheme="http://yoursite.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建个人博客</title>
+    <link href="http://yoursite.com/2019/09/01/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2019/09/01/搭建个人博客/</id>
+    <published>2019-09-01T08:26:09.000Z</published>
+    <updated>2019-09-01T08:27:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么不使用一些知名博客网站写博客？"><a href="#为什么不使用一些知名博客网站写博客？" class="headerlink" title="为什么不使用一些知名博客网站写博客？"></a><strong>为什么不使用一些知名博客网站写博客？</strong></h2><p>虽然市场上有很多优秀的平台，例如csdn、博客园等优秀平台，但是本人使用github开源网站频数较多，所以采用github部署博客的形式。其次，github搭建博客，整个博客的设计可以自己设计，其中涉及到大量的前端知识和其他知识，这是个学以致用的方式。</p><h2 id="工具的选择"><a href="#工具的选择" class="headerlink" title="工具的选择"></a><strong>工具的选择</strong></h2><p><strong>Atom编辑器+git本地+github远端+Hexo博客框架</strong></p><p>现在网上编辑文字的语言仅仅是支持Markdown语法的，Markdown语法也是很好学的，语法形式简单易懂。<strong>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</strong></p><p>git作为版本控制工具，采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。同时，使用几条简单的hexo指令和git指令就可以从本地提交自己的项目、文档、源代码等到远端，这是非常迅速的。</p><p>github远端这个就不用多说了吧，可以在远端看自己的记录。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;h2 id=&quot;为什么不使用一些知名博客网站写博客？&quot;&gt;&lt;a href=&quot;#为什么不使用一些知名博客网站写博客？&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+    
+      <category term="-前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="-github" scheme="http://yoursite.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于vscode配置c/c++的一些问题</title>
+    <link href="http://yoursite.com/2019/08/30/%E5%85%B3%E4%BA%8Evscode%E9%85%8D%E7%BD%AEc-c-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/08/30/关于vscode配置c-c-的一些问题/</id>
+    <published>2019-08-29T18:09:05.000Z</published>
+    <updated>2019-09-01T08:20:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有个问题解决。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;有个问题解决。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="-vscode" scheme="http://yoursite.com/categories/vscode/"/>
+    
+    
+      <category term="vscode" scheme="http://yoursite.com/tags/vscode/"/>
+    
+      <category term="配置环境" scheme="http://yoursite.com/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/"/>
+    
+  </entry>
+  
+</feed>
