@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-指针 -const关键字,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这几天在学算法竞赛，突然常常碰见类似这样的函数体(const vector&amp;lt;int&amp;gt;&amp;amp; A),本来我一开始不明白为什么要用&amp;amp; ,我也不太清楚const有什么作用。后来去查了些资料，发现const关键字是真的挺常用的，而后的&amp;amp; 也是和const相关的。 以下就来举例出常见的几个const用法 const  T定义一个常量，声明的同时必须进行初始化，一旦声明之后该值">
+<meta name="keywords" content="-指针 -const关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="const指针的理解">
+<meta property="og:url" content="http://yoursite.com/2019/09/03/const指针的理解/index.html">
+<meta property="og:site_name" content="MyBlog#Rukawahe#">
+<meta property="og:description" content="这几天在学算法竞赛，突然常常碰见类似这样的函数体(const vector&amp;lt;int&amp;gt;&amp;amp; A),本来我一开始不明白为什么要用&amp;amp; ,我也不太清楚const有什么作用。后来去查了些资料，发现const关键字是真的挺常用的，而后的&amp;amp; 也是和const相关的。 以下就来举例出常见的几个const用法 const  T定义一个常量，声明的同时必须进行初始化，一旦声明之后该值">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-25T11:33:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="const指针的理解">
+<meta name="twitter:description" content="这几天在学算法竞赛，突然常常碰见类似这样的函数体(const vector&amp;lt;int&amp;gt;&amp;amp; A),本来我一开始不明白为什么要用&amp;amp; ,我也不太清楚const有什么作用。后来去查了些资料，发现const关键字是真的挺常用的，而后的&amp;amp; 也是和const相关的。 以下就来举例出常见的几个const用法 const  T定义一个常量，声明的同时必须进行初始化，一旦声明之后该值">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/03/const指针的理解/">
+
+
+
+
+
+  <title>const指针的理解 | MyBlog#Rukawahe#</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MyBlog#Rukawahe#</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Pursuit of excellence...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/const指针的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog#Rukawahe#">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">const指针的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-03T07:43:53+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">-c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这几天在学算法竞赛，突然常常碰见类似这样的函数体<code>(const vector&lt;int&gt;&amp; A)</code>,本来我一开始不明白为什么要用<strong>&amp;</strong> ,我也不太清楚<strong>const</strong>有什么作用。后来去查了些资料，发现<strong>const</strong>关键字是真的挺常用的，而后的<strong>&amp;</strong> 也是和<strong>const</strong>相关的。</p>
+<p>以下就来举例出常见的几个<code>const</code>用法</p>
+<h1 id="const-T"><a href="#const-T" class="headerlink" title="const  T"></a><code>const  T</code></h1><p>定义一个常量，声明的同时必须进行初始化，一旦声明之后该值就不能改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int i=5;</span><br><span class="line">const int i2=10;    //正确</span><br><span class="line">const int i3=i;    //正确</span><br><span class="line">/i2=20;             //错误，常量值不能改变</span><br><span class="line">/const int i4;      //错误，未被初始化</span><br></pre></td></tr></table></figure></p>
+<h1 id="const-T-1"><a href="#const-T-1" class="headerlink" title="const T*"></a><code>const T*</code></h1><p>指向常量的指针，不能用于改变其所指向对象的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const int i=5;</span><br><span class="line">const int i2=10;</span><br><span class="line">const int* p=&amp;i;    //正确，指向一个const int对象，即i的地址</span><br><span class="line">/*p=10;             //错误，不能改变其所指向的对象。</span><br><span class="line">p=&amp;i2;              //正确，改变指针本身的值，此时p指向的是i2的地址。</span><br></pre></td></tr></table></figure></p>
+<h1 id="const-int-和int-const的区别"><a href="#const-int-和int-const的区别" class="headerlink" title="const int*和int *const的区别"></a><code>const int*</code>和<code>int *const</code>的区别</h1><p>把指针定义未常量就是常量指针，也就是int *const类型，声明的同时必须进行初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const int*指针指向的对象不可改变，但可以改变指针本身的值</span><br><span class="line">const int i1=5;</span><br><span class="line">const int i2=10;</span><br><span class="line">const int* p=&amp;i1;</span><br><span class="line">/*p=20;         //错误，不能改变p所指对象的值</span><br><span class="line">p=&amp;i2           //正确，可以改变指针本身的值，即此时指针指向i2</span><br><span class="line"></span><br><span class="line">int* const 指针本身的值不可改变，但其指向的对象可以改变</span><br><span class="line">int v1=10;</span><br><span class="line">int v2=20;</span><br><span class="line">int* const p=&amp;v1;</span><br><span class="line">/p=&amp;v2;     //错误，不能改变p指针本身的值</span><br><span class="line">*p=30;      //正确，可以改变所指对象的值，此时v1=30</span><br></pre></td></tr></table></figure></p>
+<h1 id="const-T-amp"><a href="#const-T-amp" class="headerlink" title="const T&amp;"></a><code>const T&amp;</code></h1><p>对常量的引用，称为常量引用，不能修改其绑定的值。</p>
+<h1 id="在函数中的应用"><a href="#在函数中的应用" class="headerlink" title="在函数中的应用"></a>在函数中的应用</h1><h2 id="1-希望传入一个对象，又不想让函数体修改这个对象。"><a href="#1-希望传入一个对象，又不想让函数体修改这个对象。" class="headerlink" title="1 希望传入一个对象，又不想让函数体修改这个对象。"></a>1 希望传入一个对象，又不想让函数体修改这个对象。</h2><h3 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void xxx(const Data&amp; data)&#123;</span><br><span class="line">  cout&lt;&lt;data.value&lt;&lt;endl;</span><br><span class="line">  /data.value=5;    //错误，data是常量，不能改变修改的值</span><br><span class="line">&#125;</span><br><span class="line">该方式还有一个好处，就是在函数调用时传递的是对象的引用，而不是对象，减少函数调用时对象赋值的开销。</span><br></pre></td></tr></table></figure>
+<h3 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void xxx(const Data* p)&#123;&#125;</span><br><span class="line">和方式1功能相同</span><br></pre></td></tr></table></figure>
+<h1 id="对于常量函数"><a href="#对于常量函数" class="headerlink" title="对于常量函数"></a><strong>对于常量函数</strong></h1><p>1、C++中引入常量函数，是c++的一个特性，充分体现了c++的封装性。</p>
+<p>2、C++中，为了防止类的数据成员被非法访问，将类的成员函数分成了两类，一类是常量成员函数（也被称为观察着）；另一类是非常量成员函数（也被成为变异者）。</p>
+<p>3、在一个函数的签名后面加上关键字const后该函数就成了常量函数。对于常量函数，最关键的不同是编译器不允许其修改类的数据成员</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/指针-const关键字/" rel="tag"># -指针 -const关键字</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/搭建个人博客/" rel="next" title="搭建个人博客">
+                <i class="fa fa-chevron-left"></i> 搭建个人博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/06/c-构造函数、拷贝构造函数等/" rel="prev" title="c++构造函数、拷贝构造函数等">
+                c++构造函数、拷贝构造函数等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Rukawahe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#const-T"><span class="nav-number">1.</span> <span class="nav-text">const  T</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const-T-1"><span class="nav-number">2.</span> <span class="nav-text">const T*</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const-int-和int-const的区别"><span class="nav-number">3.</span> <span class="nav-text">const int*和int *const的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const-T-amp"><span class="nav-number">4.</span> <span class="nav-text">const T&amp;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在函数中的应用"><span class="nav-number">5.</span> <span class="nav-text">在函数中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-希望传入一个对象，又不想让函数体修改这个对象。"><span class="nav-number">5.1.</span> <span class="nav-text">1 希望传入一个对象，又不想让函数体修改这个对象。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式1"><span class="nav-number">5.1.1.</span> <span class="nav-text">方式1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式2"><span class="nav-number">5.1.2.</span> <span class="nav-text">方式2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于常量函数"><span class="nav-number">6.</span> <span class="nav-text">对于常量函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rukawahe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
