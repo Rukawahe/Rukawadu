@@ -173,6 +173,70 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/重装后配置vscode环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/06/重装后配置vscode环境/" class="post-title-link" itemprop="url">重装后配置vscode环境</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-06 22:18:10 / 修改时间：22:47:06" itemprop="dateCreated datePublished" datetime="2019-11-06T22:18:10+08:00">2019-11-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>挺搞人的，重装后恢复好hexo部署环境再重新配置vscode环境，总是多多少少出些小问题，很多我的无法解释，我只能总结出这些小问题并给出自己的解决方法，原理暂时我是不清楚的…</p>
+<h3 id="1、老文件移植问题"><a href="#1、老文件移植问题" class="headerlink" title="1、老文件移植问题"></a>1、老文件移植问题</h3><p>老文件都是vscode的产物，把之前配置好的文件直接复制过来是没有问题的，但是呢，那个配置文件要注意一下，<strong>tasks.json</strong>和<strong>launch.json</strong>两个调试用的文件不用更改别的，<strong>唯一改的就是 miDebugger的路径，注意这里要与MinGw的路径对应</strong>。</p>
+<p>至于<strong>c_cpp_properties.json</strong>也是要改的，里面的<strong>compilerPath编译器路径</strong>改为 “F:\MinGW\bin\g++.exe”。注意一点，在vscode的配置文件中，你写的路径对否它不会给你提示的，导致我一开始没发现<strong>c_cpp_properties.json</strong>中需要改这个路径，它也没有报错。保存之后，写c++代码竟然给我显示<strong>cout未定义</strong>等等语法错误，但我头文件<code>#include&lt;iostream&gt;</code><br>也有啊，程序都能编译通过并且能调试，这就奇怪了，后来我检查半天，原来路径没写对……</p>
+<h3 id="2、一劳永逸不再配环境"><a href="#2、一劳永逸不再配环境" class="headerlink" title="2、一劳永逸不再配环境"></a>2、一劳永逸不再配环境</h3><p>用vscode写过c/c++都知道，你每生成一个文件夹你都要重新配环境，这非常麻烦，那这咋办呢?<br>其实很简单，以后写的c/c++文件代码作为子目录放在配置好的根目录中，之后就安心写代码吧。</p>
+<h3 id="3、复杂性"><a href="#3、复杂性" class="headerlink" title="3、复杂性"></a>3、复杂性</h3><p>很多人说用vscode写C/C++很麻烦，配置环境也麻烦，也会出各种bug，但是vscode本身就是一个纯编辑器，你要下载gcc/g++编译器，在vscode中还有下载相应的扩展，其实没啥的…</p>
+<p>完结撒花！！！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/重装系统后恢复hexo博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -854,86 +918,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/搭建个人博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Meng_girl.jpg">
-      <meta itemprop="name" content="Rukawahe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog -Rukawahe">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/01/搭建个人博客/" class="post-title-link" itemprop="url">搭建个人博客</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-01 16:26:09" itemprop="dateCreated datePublished" datetime="2019-09-01T16:26:09+08:00">2019-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 15:49:57" itemprop="dateModified" datetime="2019-11-06T15:49:57+08:00">2019-11-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么不使用一些知名博客网站写博客？"><a href="#为什么不使用一些知名博客网站写博客？" class="headerlink" title="为什么不使用一些知名博客网站写博客？"></a><strong>为什么不使用一些知名博客网站写博客？</strong></h2><p>虽然市场上有很多优秀的平台，例如csdn、博客园等优秀平台，但是本人使用github开源网站频数较多，所以采用github部署博客的形式。其次，github搭建博客，整个博客的设计可以自己设计，其中涉及到大量的前端知识和其他知识，这是个学以致用的方式。</p>
-<h2 id="工具的选择"><a href="#工具的选择" class="headerlink" title="工具的选择"></a><strong>工具的选择</strong></h2><p><strong>Atom编辑器+git本地+github远端+Hexo博客框架</strong><br>(本人现在使用vscode进行文字编辑，相应的markdown语法插件vscode早早配置好了…真香)</p>
-<p>现在网上编辑文字的语言仅仅是支持Markdown语法的，Markdown语法也是很好学的，语法形式简单易懂。<strong>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</strong></p>
-<p>git作为版本控制工具，采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。同时，使用几条简单的hexo指令和git指令就可以从本地提交自己的项目、文档、源代码等到远端，这是非常迅速的。</p>
-<p>github远端这个就不用多说了吧，可以在远端看自己的记录。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -990,12 +974,12 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
