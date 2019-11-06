@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-28T00:39:58.000Z</updated>
+  <updated>2019-11-06T08:36:52.290Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/11/06/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E6%81%A2%E5%A4%8Dhexo%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2019/11/06/重装系统后恢复hexo博客/</id>
+    <published>2019-11-06T08:23:19.636Z</published>
+    <updated>2019-11-06T08:36:52.290Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>title: 重装系统后恢复hexo博客<br>date: 2019-11-06 16:23:19<br>tags:</p><pre><code>hexo</code></pre><hr><p>最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了重装了系统（话说windows现在重装系统真的特别方便）。重装后以前的环境变量啥的都没了写博客该咋办，本人总结一下几个经验。</p><p>1、安装git、node.js,git,hexo<br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></p><p>2、配置SSH Key<br>查看C:\Users\用户名.ssh下有无ssh文件夹，没有则创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd ~/. ssh</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure></p><p>打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：<br><strong>注意这个步骤一定要把id_rsa.pub复制完全，我来来回回弄了好几遍，检查了好几遍，最后才发现是这段文本最后的邮箱账号与实际的少个数字……</strong></p><p>测试是否成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p><p>3、模块安装，执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure></p><p>4、部署<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 　hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p><p>撒花完结！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;hr&gt;
+&lt;p&gt;title: 重装系统后恢复hexo博客&lt;br&gt;date: 2019-11-06 16:23:19&lt;br&gt;tags:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;p&gt;最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -239,34 +265,6 @@
   </entry>
   
   <entry>
-    <title>关于哈希表</title>
-    <link href="http://yoursite.com/2019/08/30/%E5%93%88%E5%B8%8C%E8%A1%A8%E5%88%9D%E6%AD%A5/"/>
-    <id>http://yoursite.com/2019/08/30/哈希表初步/</id>
-    <published>2019-08-29T18:09:05.000Z</published>
-    <updated>2019-11-06T07:54:42.977Z</updated>
-    
-    <content type="html"><![CDATA[<p>在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，<br>再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。</p><p>单独链接</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、链接更容易实现。</span><br><span class="line">2、在链接中，哈希表永远不会填满。</span><br><span class="line">3、当不知道可以插入或者删除多少个密匙和多少频率时，通常使用链接。</span><br><span class="line">4、链接的缓存性能不佳，容易浪费空间。</span><br></pre></td></tr></table></figure><p>开放式寻址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、开放式寻址需要更多的计算，同时表可能已满。</span><br><span class="line">2、开放式寻址需要格外的小心，以避免聚类和负载因子。</span><br><span class="line">3、当知道键的频率和数量时，使用开放式寻址。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、线性探测具有最佳的缓存性能，但是受到群集的影响，线性探测的另一优点是易于计算。</span><br><span class="line">2、在缓存性能方面，二次探测介于二者之间。</span><br><span class="line">3、双散列具有较差的缓存性能，但是没有群集。双散列需要更多的计算时间，因为需要计算两个散列函数。</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，&lt;br&gt;再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。&lt;/p&gt;
-&lt;p&gt;单独链接&lt;/p&gt;
-&lt;figure class=&quot;highlight pla
-      
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
     <title>关于vscode配置c/c++的一些问题</title>
     <link href="http://yoursite.com/2019/08/30/%E5%85%B3%E4%BA%8Evscode%E9%85%8D%E7%BD%AEc-c-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2019/08/30/关于vscode配置c-c-的一些问题/</id>
@@ -292,6 +290,34 @@
       <category term="vscode" scheme="http://yoursite.com/tags/vscode/"/>
     
       <category term="配置环境" scheme="http://yoursite.com/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于哈希表</title>
+    <link href="http://yoursite.com/2019/08/30/%E5%93%88%E5%B8%8C%E8%A1%A8%E5%88%9D%E6%AD%A5/"/>
+    <id>http://yoursite.com/2019/08/30/哈希表初步/</id>
+    <published>2019-08-29T18:09:05.000Z</published>
+    <updated>2019-11-06T08:39:16.828Z</updated>
+    
+    <content type="html"><![CDATA[<p>在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，<br>再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。</p><p>单独链接</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、链接更容易实现。</span><br><span class="line">2、在链接中，哈希表永远不会填满。</span><br><span class="line">3、当不知道可以插入或者删除多少个密匙和多少频率时，通常使用链接。</span><br><span class="line">4、链接的缓存性能不佳，容易浪费空间。</span><br></pre></td></tr></table></figure><p>开放式寻址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、开放式寻址需要更多的计算，同时表可能已满。</span><br><span class="line">2、开放式寻址需要格外的小心，以避免聚类和负载因子。</span><br><span class="line">3、当知道键的频率和数量时，使用开放式寻址。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、线性探测具有最佳的缓存性能，但是受到群集的影响，线性探测的另一优点是易于计算。</span><br><span class="line">2、在缓存性能方面，二次探测介于二者之间。</span><br><span class="line">3、双散列具有较差的缓存性能，但是没有群集。双散列需要更多的计算时间，因为需要计算两个散列函数。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，&lt;br&gt;再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。&lt;/p&gt;
+&lt;p&gt;单独链接&lt;/p&gt;
+&lt;figure class=&quot;highlight pla
+      
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
