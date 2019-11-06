@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-06T08:36:52.290Z</updated>
+  <updated>2019-11-06T09:10:24.786Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,28 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>重装系统后恢复hexo博客</title>
     <link href="http://yoursite.com/2019/11/06/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E6%81%A2%E5%A4%8Dhexo%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2019/11/06/重装系统后恢复hexo博客/</id>
-    <published>2019-11-06T08:23:19.636Z</published>
-    <updated>2019-11-06T08:36:52.290Z</updated>
+    <published>2019-11-06T09:09:59.000Z</published>
+    <updated>2019-11-06T09:10:24.786Z</updated>
     
-    <content type="html"><![CDATA[<hr><p>title: 重装系统后恢复hexo博客<br>date: 2019-11-06 16:23:19<br>tags:</p><pre><code>hexo</code></pre><hr><p>最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了重装了系统（话说windows现在重装系统真的特别方便）。重装后以前的环境变量啥的都没了写博客该咋办，本人总结一下几个经验。</p><p>1、安装git、node.js,git,hexo<br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></p><p>2、配置SSH Key<br>查看C:\Users\用户名.ssh下有无ssh文件夹，没有则创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd ~/. ssh</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure></p><p>打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：<br><strong>注意这个步骤一定要把id_rsa.pub复制完全，我来来回回弄了好几遍，检查了好几遍，最后才发现是这段文本最后的邮箱账号与实际的少个数字……</strong></p><p>测试是否成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p><p>3、模块安装，执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure></p><p>4、部署<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 　hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p><p>撒花完结！</p>]]></content>
+    <content type="html"><![CDATA[<p>最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了重装了系统（话说windows现在重装系统真的特别方便）。重装后以前的环境变量啥的都没了写博客该咋办，本人总结一下几个经验。</p><p>1、安装git、node.js,git,hexo<br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></p><p>2、配置SSH Key<br>查看C:\Users\用户名.ssh下有无ssh文件夹，没有则创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd ~/. ssh</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure></p><p>打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：<br><strong>注意这个步骤一定要把id_rsa.pub复制完全，我来来回回弄了好几遍，检查了好几遍，最后才发现是这段文本最后的邮箱账号与实际的少个数字……</strong></p><p>测试是否成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p><p>3、模块安装，执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure></p><p>4、部署<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 　hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p><p>撒花完结！</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;hr&gt;
-&lt;p&gt;title: 重装系统后恢复hexo博客&lt;br&gt;date: 2019-11-06 16:23:19&lt;br&gt;tags:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;p&gt;最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了
+        &lt;p&gt;最近写代码连启动vscode都异常卡，此情况出现多次后实在忍不了重装了系统（话说windows现在重装系统真的特别方便）。重装后以前的环境变量啥的都没了写博客该咋办，本人总结一下几个经验。&lt;/p&gt;
+&lt;p&gt;1、安装git、node.js,git,hexo&lt;br&gt;执行命令&lt;br
       
     
     </summary>
     
     
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   
