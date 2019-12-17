@@ -173,6 +173,70 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/DFS深度优先搜索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/17/DFS深度优先搜索/" class="post-title-link" itemprop="url">DFS深度优先搜索</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-17 16:35:04 / 修改时间：17:01:09" itemprop="dateCreated datePublished" datetime="2019-12-17T16:35:04+08:00">2019-12-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="DFS深度优先搜索"><a href="#DFS深度优先搜索" class="headerlink" title="DFS深度优先搜索"></a>DFS深度优先搜索</h1><p>（话说很久没更新了…最近在摸鱼）</p>
+<p>dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发现B的左右节点都走过了，再退到节点A，去走AC节点C没有左子树，走右子树F，F是尽头，退到C，退到A，返回。</p>
+<p><img src="DFS.png" alt="alt text" title="Title"></p>
+<p><strong>DFS属于盲目搜索,最糟糕的情况算法时间复杂度为O(!n)。</strong></p>
+<p><strong>DFS算法框架</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">该DFS 框架以2D 坐标范围为例，来体现DFS 算法的实现思想。</span><br><span class="line">*/</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn=100;</span><br><span class="line">bool vst[maxn][maxn]; // 访问标记</span><br><span class="line">int map[maxn][maxn]; // 坐标范围</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;; // 方向向量，(x,y)周围的四个方向</span><br><span class="line"></span><br><span class="line">bool CheckEdge(int x,int y) // 边界条件和约束条件的判断</span><br><span class="line">&#123;</span><br><span class="line">    if(!vst[x][y] &amp;&amp; ...) // 满足条件</span><br><span class="line">        return 1;</span><br><span class="line">    else // 与约束条件冲突</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">    vst[x][y]=1; // 标记该节点被访问过</span><br><span class="line">    if(map[x][y]==G) // 出现目标态G</span><br><span class="line">    &#123;</span><br><span class="line">        ...... // 做相应处理</span><br><span class="line">    return;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;4;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(CheckEdge(x+dir[i][0],y+dir[i][1])) // 按照规则生成下一个节点</span><br><span class="line">        dfs(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return; // 没有下层搜索节点，回溯</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">题：1代表墙壁，0代表路，求给定数据中从某点出发得到的最大路径途径</span><br><span class="line">如给定数据：</span><br><span class="line">1 0 1 1 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">1 1 0 0 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">0 0 1 0 0</span><br><span class="line">代码实现：</span><br><span class="line">#include&lt;iostream&gt;//求能找到的区域</span><br><span class="line">#include&lt;cstring&gt;//包含memset()函数</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int ans=0;//记录步数</span><br><span class="line">const int MAXN=100;</span><br><span class="line">bool visited[MAXN][MAXN];</span><br><span class="line">int map[MAXN][MAXN];</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;;//位置移动数组</span><br><span class="line"></span><br><span class="line">bool checkEdg(int x,int y)&#123;</span><br><span class="line">    if(!visited[x][y] &amp;&amp; map[x][y]==0 &amp;&amp; x&gt;=0 &amp;&amp; x&lt;5 &amp;&amp; y&gt;=0 &amp;&amp; y&lt;=5)//当前节点没被访问过</span><br><span class="line">        return true;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">void DFS(int x,int y)&#123;</span><br><span class="line">    visited[x][y]=true;</span><br><span class="line">    for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">        if(checkEdg(x+dir[i][0],y+dir[i][1]))&#123;//按照规则继续生成下一个节点</span><br><span class="line">            DFS(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return;//没有下一层节点，回溯</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    memset(map,-1,sizeof(map));</span><br><span class="line">    memset(visited,false,sizeof(visited));</span><br><span class="line"></span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            cin&gt;&gt;map[i][j];</span><br><span class="line">    DFS(0,1);//可以选择从任意某个“路口”初始化，但得到的结果是仅从该点出发得到的最大路径</span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            if(visited[i][j])&#123;</span><br><span class="line">                cout&lt;&lt;&quot;i:&quot;&lt;&lt;i&lt;&lt;&quot; j:&quot;&lt;&lt;j&lt;&lt;endl;</span><br><span class="line">                ans++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">    cout&lt;&lt;&quot;the max path：&quot;&lt;&lt;ans;</span><br><span class="line">    return 0; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">**输出结果**</span><br><span class="line">i:0 j:1</span><br><span class="line">i:1 j:1</span><br><span class="line">i:1 j:2</span><br><span class="line">i:2 j:2</span><br><span class="line">i:2 j:3</span><br><span class="line">i:2 j:4</span><br><span class="line">i:3 j:1</span><br><span class="line">i:3 j:2</span><br><span class="line">i:4 j:0</span><br><span class="line">i:4 j:1</span><br><span class="line">the max path：10</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/vector实现二维数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,110 +887,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/c-拷贝构造函数和赋值运算符/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Meng_girl.jpg">
-      <meta itemprop="name" content="Rukawahe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog -Rukawahe">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/08/c-拷贝构造函数和赋值运算符/" class="post-title-link" itemprop="url">c++拷贝构造函数和赋值运算符</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-08 11:13:06" itemprop="dateCreated datePublished" datetime="2019-09-08T11:13:06+08:00">2019-09-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 15:55:21" itemprop="dateModified" datetime="2019-11-06T15:55:21+08:00">2019-11-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c++</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="c-拷贝构造函数"><a href="#c-拷贝构造函数" class="headerlink" title="c++拷贝构造函数"></a>c++拷贝构造函数</h2><h3 id="一、聊聊深拷贝和浅拷贝的问题"><a href="#一、聊聊深拷贝和浅拷贝的问题" class="headerlink" title="一、聊聊深拷贝和浅拷贝的问题"></a>一、聊聊深拷贝和浅拷贝的问题</h3><p>一般的，只要出现类复制的情况，就会调用拷贝构造函数。</p>
-<blockquote>
-<p>1、对象作为函数的参数，以值传递的方式传给函数</p>
-</blockquote>
-<blockquote>
-<p>2、对象作为函数的返回值，以值的方式从函数返回</p>
-</blockquote>
-<blockquote>
-<p>3、使用一个对象给另一个对象初始化</p>
-</blockquote>
-<h3 id="两个区别"><a href="#两个区别" class="headerlink" title="两个区别"></a><strong>两个区别</strong></h3><p>1  在未定义显示拷贝构造函数的情况下，系统会调用默认的拷贝函数——即浅拷贝，<br>它能够完成成员的一一复制。当数据成员中没有指针时，浅拷贝是可行的；但当数<br>据成员中有指针时，<strong>如果采用简单的浅拷贝，则两类中的两个指针将指向同一个地址</strong>，<br>当对象快结束时，会调用两次析构函数，而导致指针悬挂现象，所以，此时，必须采用深拷贝。</p>
-<p>2 深拷贝与浅拷贝的区别就在于深拷贝会在堆内存中另外申请空间来储存数据，从而也就解决了指<br>针悬挂的问题。简而言之，当数据成员中有指针时，必须要用深拷贝。</p>
-<p><strong>总结：</strong>深拷贝和浅拷贝的区别是在对象状态中包含其它对象的引用的时候，当拷贝一个对象时，<br>如果需要拷贝这个对象引用的对象，则是深拷贝，否则是浅拷贝。</p>
-<h3 id="二、拷贝构造函数和赋值运算符"><a href="#二、拷贝构造函数和赋值运算符" class="headerlink" title="二、拷贝构造函数和赋值运算符"></a>二、拷贝构造函数和赋值运算符</h3><blockquote>
-<p>1、 拷贝构造函数和赋值运算符的行为比较相似（即将一个对象的值复制给另一个对象），<br>但产生的结果却是不同的，即拷贝构造函数使用传入的值生成一个新的对象的实例，而<br>赋值运算符是将对象的值复制给已经存在的实例。</p>
-</blockquote>
-<blockquote>
-<p>2、区分是调用拷贝构造函数还是赋值运算符，主要是否有新的对象产生。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person&#123;</span><br><span class="line">	public:</span><br><span class="line">		Person()&#123;&#125;</span><br><span class="line">		Person(const Person&amp; p)&#123;</span><br><span class="line">			cout&lt;&lt;&quot;copy constructor&quot;&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">		Person&amp; operator=(const	Person&amp; p)&#123;</span><br><span class="line">			cout &lt;&lt; &quot;assign&quot; &lt;&lt; endl;</span><br><span class="line">			return *this;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line">void f(Person p)&#123;</span><br><span class="line">	return;</span><br><span class="line">&#125;</span><br><span class="line">Person f1()&#123;</span><br><span class="line">	Person p;</span><br><span class="line">	return p;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Person p;</span><br><span class="line">	Person p1 = p;//1  &quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">	Person p2;</span><br><span class="line">	p2 = p;//2  &quot;assign&quot;</span><br><span class="line"></span><br><span class="line">	f(p2);//3	&quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">	p2 = f1();//4	&quot;copy constructor&quot; and &quot;assign&quot;</span><br><span class="line"></span><br><span class="line">	Person p3 = f1();//5 &quot;copy constructor&quot;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>分析如下：</strong></p>
-<p>1这是虽然使用了”=”，但是实际上使用对象p来创建一个新的对象p1。也就是产生了新的对象，所以调用的是拷贝构造函数。</p>
-<p>2首先声明一个对象p2，然后使用赋值运算符”=”，将p的值复制给p2，显然是调用赋值运算符，为一个已经存在的对象赋值 。</p>
-<p>3以值传递的方式将对象p2传入函数f内，调用拷贝构造函数构建一个函数f可用的实参。</p>
-<p>4这条语句拷贝构造函数和赋值运算符都调用了。函数f1以值的方式返回一个Person对象，在返回时会调用拷贝构造函数创建一个临时对象tmp作为返回值；返回后调用赋值运算符将临时对象tmp赋值给p2.</p>
-<p>5按照4的解释，应该是首先调用拷贝构造函数创建临时对象；然后再调用拷贝构造函数使用刚才创建的临时对象创建新的对象p3，也就是会调用两次拷贝构造函数。不过，编译器也没有那么傻，应该是直接调用拷贝构造函数使用返回值创建了对象p3。</p>
-<p><strong>辨别构造函数、拷贝构造函数和赋值构造函数</strong></p>
-<p>虽然三个函数的行为方式很相似，但是可以轻易地用以下方法辨别出来</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象不存在的，且没用别的对象初始化的，就是调用了(默认)构造函数</span><br><span class="line"></span><br><span class="line">对象不存在的，且使用了别的对象初始化的，就是调用了拷贝构造函数</span><br><span class="line"></span><br><span class="line">对象存在的，且用别的对象来给它赋值的，就是赋值函数。</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -977,7 +937,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -988,7 +948,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

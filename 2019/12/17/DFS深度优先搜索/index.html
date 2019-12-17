@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="MyBlog -Rukawahe" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="DFS深度优先搜索（话说很久没更新了…最近在摸鱼） dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发">
+<meta name="keywords" content="algorithm 搜索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DFS深度优先搜索">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/DFS深度优先搜索/index.html">
+<meta property="og:site_name" content="MyBlog -Rukawahe">
+<meta property="og:description" content="DFS深度优先搜索（话说很久没更新了…最近在摸鱼） dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/12/17/DFS深度优先搜索/DFS.png">
+<meta property="og:updated_time" content="2019-12-17T09:01:09.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DFS深度优先搜索">
+<meta name="twitter:description" content="DFS深度优先搜索（话说很久没更新了…最近在摸鱼） dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/17/DFS深度优先搜索/DFS.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/17/DFS深度优先搜索/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>DFS深度优先搜索 | MyBlog -Rukawahe</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MyBlog -Rukawahe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Pursuit of excellence...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/DFS深度优先搜索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DFS深度优先搜索
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-17 16:35:04 / 修改时间：17:01:09" itemprop="dateCreated datePublished" datetime="2019-12-17T16:35:04+08:00">2019-12-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="DFS深度优先搜索"><a href="#DFS深度优先搜索" class="headerlink" title="DFS深度优先搜索"></a>DFS深度优先搜索</h1><p>（话说很久没更新了…最近在摸鱼）</p>
+<p>dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发现B的左右节点都走过了，再退到节点A，去走AC节点C没有左子树，走右子树F，F是尽头，退到C，退到A，返回。</p>
+<p><img src="DFS.png" alt="alt text" title="Title"></p>
+<p><strong>DFS属于盲目搜索,最糟糕的情况算法时间复杂度为O(!n)。</strong></p>
+<p><strong>DFS算法框架</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">该DFS 框架以2D 坐标范围为例，来体现DFS 算法的实现思想。</span><br><span class="line">*/</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn=100;</span><br><span class="line">bool vst[maxn][maxn]; // 访问标记</span><br><span class="line">int map[maxn][maxn]; // 坐标范围</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;; // 方向向量，(x,y)周围的四个方向</span><br><span class="line"></span><br><span class="line">bool CheckEdge(int x,int y) // 边界条件和约束条件的判断</span><br><span class="line">&#123;</span><br><span class="line">    if(!vst[x][y] &amp;&amp; ...) // 满足条件</span><br><span class="line">        return 1;</span><br><span class="line">    else // 与约束条件冲突</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">    vst[x][y]=1; // 标记该节点被访问过</span><br><span class="line">    if(map[x][y]==G) // 出现目标态G</span><br><span class="line">    &#123;</span><br><span class="line">        ...... // 做相应处理</span><br><span class="line">    return;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;4;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(CheckEdge(x+dir[i][0],y+dir[i][1])) // 按照规则生成下一个节点</span><br><span class="line">        dfs(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return; // 没有下层搜索节点，回溯</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">题：1代表墙壁，0代表路，求给定数据中从某点出发得到的最大路径途径</span><br><span class="line">如给定数据：</span><br><span class="line">1 0 1 1 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">1 1 0 0 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">0 0 1 0 0</span><br><span class="line">代码实现：</span><br><span class="line">#include&lt;iostream&gt;//求能找到的区域</span><br><span class="line">#include&lt;cstring&gt;//包含memset()函数</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int ans=0;//记录步数</span><br><span class="line">const int MAXN=100;</span><br><span class="line">bool visited[MAXN][MAXN];</span><br><span class="line">int map[MAXN][MAXN];</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;;//位置移动数组</span><br><span class="line"></span><br><span class="line">bool checkEdg(int x,int y)&#123;</span><br><span class="line">    if(!visited[x][y] &amp;&amp; map[x][y]==0 &amp;&amp; x&gt;=0 &amp;&amp; x&lt;5 &amp;&amp; y&gt;=0 &amp;&amp; y&lt;=5)//当前节点没被访问过</span><br><span class="line">        return true;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">void DFS(int x,int y)&#123;</span><br><span class="line">    visited[x][y]=true;</span><br><span class="line">    for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">        if(checkEdg(x+dir[i][0],y+dir[i][1]))&#123;//按照规则继续生成下一个节点</span><br><span class="line">            DFS(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return;//没有下一层节点，回溯</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    memset(map,-1,sizeof(map));</span><br><span class="line">    memset(visited,false,sizeof(visited));</span><br><span class="line"></span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            cin&gt;&gt;map[i][j];</span><br><span class="line">    DFS(0,1);//可以选择从任意某个“路口”初始化，但得到的结果是仅从该点出发得到的最大路径</span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            if(visited[i][j])&#123;</span><br><span class="line">                cout&lt;&lt;&quot;i:&quot;&lt;&lt;i&lt;&lt;&quot; j:&quot;&lt;&lt;j&lt;&lt;endl;</span><br><span class="line">                ans++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">    cout&lt;&lt;&quot;the max path：&quot;&lt;&lt;ans;</span><br><span class="line">    return 0; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">**输出结果**</span><br><span class="line">i:0 j:1</span><br><span class="line">i:1 j:1</span><br><span class="line">i:1 j:2</span><br><span class="line">i:2 j:2</span><br><span class="line">i:2 j:3</span><br><span class="line">i:2 j:4</span><br><span class="line">i:3 j:1</span><br><span class="line">i:3 j:2</span><br><span class="line">i:4 j:0</span><br><span class="line">i:4 j:1</span><br><span class="line">the max path：10</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithm-搜索/" rel="tag"># algorithm 搜索</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/22/vector实现二维数组/" rel="next" title="vector实现二维数组">
+                  <i class="fa fa-chevron-left"></i> vector实现二维数组
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS深度优先搜索"><span class="nav-number">1.</span> <span class="nav-text">DFS深度优先搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个例子"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">一个例子</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Rukawahe"
+    src="/images/Meng_girl.jpg">
+  <p class="site-author-name" itemprop="name">Rukawahe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Rukawahe" title="GitHub &rarr; https://github.com/Rukawahe" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2456468234@qq.com" title="E-Mail &rarr; mailto:2456468234@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/Rukawahe" title="https://github.com/Rukawahe" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rukawahe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
