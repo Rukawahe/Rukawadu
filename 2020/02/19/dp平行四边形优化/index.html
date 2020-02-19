@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="MyBlog -Rukawahe" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="区间dp优化四边形不等式优化条件在动态规划中，经常遇到形如下式的转台转移方程：123456789101112131415上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N^3)。下面我们通过四边形不等式来优化上述方程，首先介绍什么是&amp;quot;区间包含的单调性“和&amp;quot;四边形不等式&amp;quot;**（1）区间包含的单调性*">
+<meta name="keywords" content="dp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dp平行四边形优化">
+<meta property="og:url" content="http://yoursite.com/2020/02/19/dp平行四边形优化/index.html">
+<meta property="og:site_name" content="MyBlog -Rukawahe">
+<meta property="og:description" content="区间dp优化四边形不等式优化条件在动态规划中，经常遇到形如下式的转台转移方程：123456789101112131415上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N^3)。下面我们通过四边形不等式来优化上述方程，首先介绍什么是&amp;quot;区间包含的单调性“和&amp;quot;四边形不等式&amp;quot;**（1）区间包含的单调性*">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-19T13:56:52.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dp平行四边形优化">
+<meta name="twitter:description" content="区间dp优化四边形不等式优化条件在动态规划中，经常遇到形如下式的转台转移方程：123456789101112131415上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N^3)。下面我们通过四边形不等式来优化上述方程，首先介绍什么是&amp;quot;区间包含的单调性“和&amp;quot;四边形不等式&amp;quot;**（1）区间包含的单调性*">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/19/dp平行四边形优化/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>dp平行四边形优化 | MyBlog -Rukawahe</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MyBlog -Rukawahe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Pursuit of excellence...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/dp平行四边形优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          dp平行四边形优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-19 21:38:04 / 修改时间：21:56:52" itemprop="dateCreated datePublished" datetime="2020-02-19T21:38:04+08:00">2020-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="区间dp优化"><a href="#区间dp优化" class="headerlink" title="区间dp优化"></a>区间dp优化</h4><h4 id="四边形不等式优化条件"><a href="#四边形不等式优化条件" class="headerlink" title="四边形不等式优化条件"></a>四边形不等式优化条件</h4><p>在动态规划中，经常遇到形如下式的转台转移方程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N^3)。</span><br><span class="line"></span><br><span class="line">下面我们通过四边形不等式来优化上述方程，首先介绍什么是&quot;区间包含的单调性“和&quot;四边形不等式&quot;</span><br><span class="line">**（1）区间包含的单调性**:如果对于i≤i&apos;&lt;j≤j&apos;，有w(i&apos;,j)≤w(i,j&apos;)，那么说明w具有区间包含的单调性。（可以形象理解为如果小区间包含于大区间中，那么小区间的w值不超过大区间的w值）</span><br><span class="line"></span><br><span class="line">**（2）四边形不等式**：如果对于i≤i&apos;&lt;j≤j&apos;，有w(i,j)+w(i&apos;,j&apos;)≤w(i&apos;,j)+w(i,j&apos;)，我们称函数w满足四边形不等式。（可以形象理解为两个交错区间的w的和不超过小区间与大区间的w的和）</span><br><span class="line"></span><br><span class="line">下面给出两个定理:</span><br><span class="line">**定理一**：如果上述的w函数同时满足区间包含单调性和四边形不等式性质，那么函数m也满足四边形不等式性质。</span><br><span class="line"></span><br><span class="line">我们再定义s(i,j)表示m(i,j)取得最优值时对应的下标（即i≤k≤j时，k处的w值最大，则s(i,j)=k）。此时有如下定理</span><br><span class="line">**定理二**：假如m(i,j)满足四边形不等式，那么s(i,j)单调，即s(i,j)≤s(i,j+1)≤s(i+1,j+1)。</span><br><span class="line"></span><br><span class="line">好了，有了上述的两个定理后，我们发现如果w函数满足区间包含单调性和四边形不等式性质，那么有s(i,j-1)≤s(i,j)≤s(i+1,j)。即原来的状态转移方程可以改写为下式：</span><br><span class="line">```m(i,j)=min&#123;m(i,k-1),m(k,j)&#125;+w(i,j)(s(i,j-1)≤k≤s(i+1,j))（min也可以改为max）</span><br></pre></td></tr></table></figure></p>
+<p>由于这个状态转移方程枚举的是区间长度L=j-i，而s(i,j-1)和s(i+1,j)的长度为L-1，是之间已经计算过的，可以直接调用。不仅如此，区间的长度最多有n个，对于固定的长度L，不同的状态也有n个，故时间复杂度为O(N^2)，而原来的时间复杂度为O(N^3),实现了优化！今后只需要根据方程的形式以及w函数是否满足两条性质即可考虑使用四边形不等式来优化了。</p>
+<h4 id="例题：poj3506"><a href="#例题：poj3506" class="headerlink" title="例题：poj3506"></a>例题：poj3506</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">AC代码：</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#define MAXN 2020</span><br><span class="line">using namespace std;</span><br><span class="line">const int INF = 0x3f3f3f3f;</span><br><span class="line">int dp[MAXN][MAXN],a[MAXN],sum[MAXN],s[MAXN][MAXN];//s(i,j)表示dp(i,j)取得最优值时对应的下标（即i≤k≤j时，k处的w值最大，则s(i,j)=k）</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    while(~scanf(&quot;%d&quot;,&amp;n))&#123;</span><br><span class="line">        sum[0]=0;</span><br><span class="line">        memset(dp,0x3f,sizeof(dp));</span><br><span class="line"></span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line"></span><br><span class="line">            sum[i]=sum[i-1]+a[i];</span><br><span class="line"></span><br><span class="line">            s[i][i]=i;</span><br><span class="line"></span><br><span class="line">            dp[i][i]=0;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int i=1;i&lt;n;i++)</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            sum[i+n]=sum[i+n-1]+a[i];</span><br><span class="line"></span><br><span class="line">            s[i+n][i+n]=i+n;</span><br><span class="line"></span><br><span class="line">            dp[i+n][i+n]=0;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int len=2;len&lt;=n;len++)&#123;</span><br><span class="line">            for(int i=1;i&lt;=2*n-1;i++)&#123;</span><br><span class="line">                int j=i+len-1;</span><br><span class="line">                 if(j&gt;2*n-1) </span><br><span class="line">                    break;</span><br><span class="line">                /*for(int k=i;k&lt;j &amp;&amp; k&lt;2*n-1;k++)&#123;</span><br><span class="line">                    dp[i][j]=min(dp[i][j],dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1]);</span><br><span class="line">                &#125;</span><br><span class="line">                */</span><br><span class="line">                //进行四边形优化处理</span><br><span class="line">                for(int k=s[i][j-1];k&lt;=s[i+1][j];k++)&#123;</span><br><span class="line">                    if(dp[i][j]&gt;dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1])&#123;</span><br><span class="line">                        dp[i][j]=dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1];</span><br><span class="line">                        s[i][j]=k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int ans=INF;</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">            ans=min(ans,dp[i][i+n-1]);</span><br><span class="line">        printf(&quot;%d\n&quot;,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dp/" rel="tag"># dp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/02/14/计算机网络/" rel="next" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#区间dp优化"><span class="nav-number">1.</span> <span class="nav-text">区间dp优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四边形不等式优化条件"><span class="nav-number">2.</span> <span class="nav-text">四边形不等式优化条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题：poj3506"><span class="nav-number">3.</span> <span class="nav-text">例题：poj3506</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Rukawahe"
+    src="/images/Meng_girl.jpg">
+  <p class="site-author-name" itemprop="name">Rukawahe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Rukawahe" title="GitHub &rarr; https://github.com/Rukawahe" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2456468234@qq.com" title="E-Mail &rarr; mailto:2456468234@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/Rukawahe" title="https://github.com/Rukawahe" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rukawahe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

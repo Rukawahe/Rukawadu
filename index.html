@@ -173,6 +173,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/dp平行四边形优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/19/dp平行四边形优化/" class="post-title-link" itemprop="url">dp平行四边形优化</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-19 21:38:04 / 修改时间：21:56:52" itemprop="dateCreated datePublished" datetime="2020-02-19T21:38:04+08:00">2020-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="区间dp优化"><a href="#区间dp优化" class="headerlink" title="区间dp优化"></a>区间dp优化</h4><h4 id="四边形不等式优化条件"><a href="#四边形不等式优化条件" class="headerlink" title="四边形不等式优化条件"></a>四边形不等式优化条件</h4><p>在动态规划中，经常遇到形如下式的转台转移方程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N^3)。</span><br><span class="line"></span><br><span class="line">下面我们通过四边形不等式来优化上述方程，首先介绍什么是&quot;区间包含的单调性“和&quot;四边形不等式&quot;</span><br><span class="line">**（1）区间包含的单调性**:如果对于i≤i&apos;&lt;j≤j&apos;，有w(i&apos;,j)≤w(i,j&apos;)，那么说明w具有区间包含的单调性。（可以形象理解为如果小区间包含于大区间中，那么小区间的w值不超过大区间的w值）</span><br><span class="line"></span><br><span class="line">**（2）四边形不等式**：如果对于i≤i&apos;&lt;j≤j&apos;，有w(i,j)+w(i&apos;,j&apos;)≤w(i&apos;,j)+w(i,j&apos;)，我们称函数w满足四边形不等式。（可以形象理解为两个交错区间的w的和不超过小区间与大区间的w的和）</span><br><span class="line"></span><br><span class="line">下面给出两个定理:</span><br><span class="line">**定理一**：如果上述的w函数同时满足区间包含单调性和四边形不等式性质，那么函数m也满足四边形不等式性质。</span><br><span class="line"></span><br><span class="line">我们再定义s(i,j)表示m(i,j)取得最优值时对应的下标（即i≤k≤j时，k处的w值最大，则s(i,j)=k）。此时有如下定理</span><br><span class="line">**定理二**：假如m(i,j)满足四边形不等式，那么s(i,j)单调，即s(i,j)≤s(i,j+1)≤s(i+1,j+1)。</span><br><span class="line"></span><br><span class="line">好了，有了上述的两个定理后，我们发现如果w函数满足区间包含单调性和四边形不等式性质，那么有s(i,j-1)≤s(i,j)≤s(i+1,j)。即原来的状态转移方程可以改写为下式：</span><br><span class="line">```m(i,j)=min&#123;m(i,k-1),m(k,j)&#125;+w(i,j)(s(i,j-1)≤k≤s(i+1,j))（min也可以改为max）</span><br></pre></td></tr></table></figure></p>
+<p>由于这个状态转移方程枚举的是区间长度L=j-i，而s(i,j-1)和s(i+1,j)的长度为L-1，是之间已经计算过的，可以直接调用。不仅如此，区间的长度最多有n个，对于固定的长度L，不同的状态也有n个，故时间复杂度为O(N^2)，而原来的时间复杂度为O(N^3),实现了优化！今后只需要根据方程的形式以及w函数是否满足两条性质即可考虑使用四边形不等式来优化了。</p>
+<h4 id="例题：poj3506"><a href="#例题：poj3506" class="headerlink" title="例题：poj3506"></a>例题：poj3506</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">AC代码：</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#define MAXN 2020</span><br><span class="line">using namespace std;</span><br><span class="line">const int INF = 0x3f3f3f3f;</span><br><span class="line">int dp[MAXN][MAXN],a[MAXN],sum[MAXN],s[MAXN][MAXN];//s(i,j)表示dp(i,j)取得最优值时对应的下标（即i≤k≤j时，k处的w值最大，则s(i,j)=k）</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    while(~scanf(&quot;%d&quot;,&amp;n))&#123;</span><br><span class="line">        sum[0]=0;</span><br><span class="line">        memset(dp,0x3f,sizeof(dp));</span><br><span class="line"></span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line"></span><br><span class="line">            sum[i]=sum[i-1]+a[i];</span><br><span class="line"></span><br><span class="line">            s[i][i]=i;</span><br><span class="line"></span><br><span class="line">            dp[i][i]=0;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int i=1;i&lt;n;i++)</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            sum[i+n]=sum[i+n-1]+a[i];</span><br><span class="line"></span><br><span class="line">            s[i+n][i+n]=i+n;</span><br><span class="line"></span><br><span class="line">            dp[i+n][i+n]=0;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int len=2;len&lt;=n;len++)&#123;</span><br><span class="line">            for(int i=1;i&lt;=2*n-1;i++)&#123;</span><br><span class="line">                int j=i+len-1;</span><br><span class="line">                 if(j&gt;2*n-1) </span><br><span class="line">                    break;</span><br><span class="line">                /*for(int k=i;k&lt;j &amp;&amp; k&lt;2*n-1;k++)&#123;</span><br><span class="line">                    dp[i][j]=min(dp[i][j],dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1]);</span><br><span class="line">                &#125;</span><br><span class="line">                */</span><br><span class="line">                //进行四边形优化处理</span><br><span class="line">                for(int k=s[i][j-1];k&lt;=s[i+1][j];k++)&#123;</span><br><span class="line">                    if(dp[i][j]&gt;dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1])&#123;</span><br><span class="line">                        dp[i][j]=dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1];</span><br><span class="line">                        s[i][j]=k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int ans=INF;</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">            ans=min(ans,dp[i][i+n-1]);</span><br><span class="line">        printf(&quot;%d\n&quot;,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/计算机网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/计算机网络/" class="post-title-link" itemprop="url">未命名</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-14 11:15:09" itemprop="dateCreated datePublished" datetime="2020-02-14T11:15:09+08:00">2020-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-19 21:58:09" itemprop="dateModified" datetime="2020-02-19T21:58:09+08:00">2020-02-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一些概念：</p>
+<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN:"></a>WAN:</h2><p>A wide area network (WAN) is a telecommunications network that extends over a large geographical area for the primary purpose of computer networking.广域网（WAN）是一个电信网络上延伸为的主要目的一个大的地理区域的计算机网络。广域网通常通过租用的电信线路来建立。<br>Similar types of networks are personal area networks (PANs), local area networks (LANs), campus area networks (CANs), or metropolitan area networks (MANs) which are usually limited to a room, building, campus or specific metropolitan area, respectively.<br>类似类型的网络是个人区域网络（PAN），局域网（LAN），园区网络（CAN）或城域网（MAN），它们通常分别限于房间，建筑物，校园或特定的城域。</p>
+<p><strong>举个简单例子：</strong><br><img src="http.png" alt="alt text" title="Title"></p>
+<p>假如我想在我的电脑看youtube,当我在浏览器点击 <a href="http://www.youtube.com,我的电脑服务器会发送一个http请求到达youtube公共服务器，公共服务器接收到请求后会返回一个HTMLFile文件，然后用户在电脑上就会看到youtube上的信息。" target="_blank" rel="noopener">www.youtube.com,我的电脑服务器会发送一个http请求到达youtube公共服务器，公共服务器接收到请求后会返回一个HTMLFile文件，然后用户在电脑上就会看到youtube上的信息。</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/BFS搜索和DFS搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,10 +324,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-01-08 08:34:01 / 修改时间：09:08:30" itemprop="dateCreated datePublished" datetime="2020-01-08T08:34:01+08:00">2020-01-08</time>
+              <time title="创建时间：2020-01-08 08:34:01" itemprop="dateCreated datePublished" datetime="2020-01-08T08:34:01+08:00">2020-01-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-11 20:36:56" itemprop="dateModified" datetime="2020-01-11T20:36:56+08:00">2020-01-11</time>
+              </span>
 
           
 
@@ -322,10 +456,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-17 16:35:04 / 修改时间：17:01:09" itemprop="dateCreated datePublished" datetime="2019-12-17T16:35:04+08:00">2019-12-17</time>
+              <time title="创建时间：2019-12-17 16:35:04" itemprop="dateCreated datePublished" datetime="2019-12-17T16:35:04+08:00">2019-12-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-19 21:58:12" itemprop="dateModified" datetime="2020-02-19T21:58:12+08:00">2020-02-19</time>
+              </span>
 
           
 
@@ -458,7 +598,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-22 17:02:50" itemprop="dateModified" datetime="2019-11-22T17:02:50+08:00">2019-11-22</time>
+                <time title="修改时间：2020-02-19 21:58:11" itemprop="dateModified" datetime="2020-02-19T21:58:11+08:00">2020-02-19</time>
               </span>
 
           
@@ -509,6 +649,7 @@
 </tr>
 </tbody>
 </table>
+<h3 id="一般模板"><a href="#一般模板" class="headerlink" title="一般模板:"></a>一般模板:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#define MAX 100</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int par[MAX];//父亲</span><br><span class="line">int height[MAX];//高度</span><br><span class="line"></span><br><span class="line">//初始化n个元素</span><br><span class="line">void init(int n)&#123;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        par[i]=i;</span><br><span class="line">        height[i]=0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//查找树的根</span><br><span class="line">int find(int x)&#123;</span><br><span class="line">    if(par[x]==x)</span><br><span class="line">        return x;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return find(par[x]);//此处并没有使用路径压缩，所以查找只能递归向上不断查找父节点</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">//合并x和y所属的集合</span><br><span class="line">void merge(int x,int y)&#123;</span><br><span class="line">    x=find(x);</span><br><span class="line">    y=find(y);</span><br><span class="line">    if(x==y)//属于同一个集合</span><br><span class="line">        return;</span><br><span class="line">    if(height[x]&lt;height[y])</span><br><span class="line">        par[x]=y;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        par[y]=x;</span><br><span class="line">        if(height[x]==height[y])//对于高度相同的树，还要高度增加</span><br><span class="line">            height[x]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">//判断x和y是否属于同一个集合</span><br><span class="line">bool same(int x,int y)&#123;</span><br><span class="line">    return find(x)==find(y);</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -727,164 +868,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/pair关系容器的运用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Meng_girl.jpg">
-      <meta itemprop="name" content="Rukawahe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog -Rukawahe">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/03/pair关系容器的运用/" class="post-title-link" itemprop="url">pair关系容器的运用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-03 10:27:34" itemprop="dateCreated datePublished" datetime="2019-11-03T10:27:34+08:00">2019-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 15:55:49" itemprop="dateModified" datetime="2019-11-06T15:55:49+08:00">2019-11-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>c++pair类型定义在utility头文件中定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;T1,T2&gt;p1;创建一个空的pair对象，它的两个元素类型分别是T1，T2</span><br></pre></td></tr></table></figure></p>
-<h2 id="1、pair的创建和初始化"><a href="#1、pair的创建和初始化" class="headerlink" title="1、pair的创建和初始化"></a>1、pair的创建和初始化</h2><p>pair包含两个数值，与容器一样，在创建对象1时，必须提供两个类型名(类型名不必相同)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string,string&gt;A;</span><br><span class="line">pair&lt;string,int&gt;B;</span><br><span class="line">pair&lt;string,vector&lt;int&gt;&gt;C;</span><br></pre></td></tr></table></figure></p>
-<p>当然也可以在定义时初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string,string&gt;A(&quot;James&quot;,&quot;Joy&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>pair类型的使用相当的繁琐，如果定义多个相同的pair类型对象，可以使用typedef简化声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef pair&lt;string,string&gt; A;</span><br><span class="line">A B(&quot;Jordan&quot;,&quot;curry&quot;);</span><br><span class="line">A C(&quot;James&quot;,&quot;kobe&quot;);</span><br></pre></td></tr></table></figure></p>
-<h2 id="2、pair对象的操作"><a href="#2、pair对象的操作" class="headerlink" title="2、pair对象的操作"></a>2、pair对象的操作</h2><p>对于pair类，可以直接访问其数据成员：其成员都是公有的，分别命名为first和second，只需要使用普通的点操作符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A.first==&quot;James&quot; &amp;&amp; B.second==&quot;curry&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、生成新的pair对象"><a href="#3、生成新的pair对象" class="headerlink" title="3、生成新的pair对象"></a>3、生成新的pair对象</h2><p>除了构造函数，标准库还定义了一个make_pair函数，由传递给它的两个实参生成一个新的pair对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string, string&gt; next_auth;</span><br><span class="line">string first,last;</span><br><span class="line">while(cin&gt;&gt;first&gt;&gt;last) &#123;</span><br><span class="line">    next_auth=make_pair(first,last);</span><br><span class="line">&#125;</span><br><span class="line">等同于</span><br><span class="line">next_auth=pair&lt;string,string&gt;(first,second)</span><br></pre></td></tr></table></figure></p>
-<h2 id="4、例子"><a href="#4、例子" class="headerlink" title="4、例子"></a>4、例子</h2><p>编写程序读入一系列string和int型数据，将每一组存储在一个pair对象中，然后将这些pair对象存储在vector容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    pair&lt;string, int&gt;p;</span><br><span class="line">    typedef vector&lt; pair&lt;string, int&gt; &gt; VP;</span><br><span class="line">    VP vp;</span><br><span class="line">    while(cin&gt;&gt;p.first&gt;&gt;p.second)</span><br><span class="line">    &#123;</span><br><span class="line">        vp.push_back(make_pair(p.first,p.second));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    VP::iterator it;</span><br><span class="line">    for(it=vp.begin(); it!=vp.end(); it++)</span><br><span class="line">        cout&lt;&lt;it-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;it-&gt;second&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/线段树概念及其应用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Meng_girl.jpg">
-      <meta itemprop="name" content="Rukawahe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog -Rukawahe">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/27/线段树概念及其应用/" class="post-title-link" itemprop="url">线段树概念及其应用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-27 08:43:40" itemprop="dateCreated datePublished" datetime="2019-10-27T08:43:40+08:00">2019-10-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 15:54:59" itemprop="dateModified" datetime="2019-11-06T15:54:59+08:00">2019-11-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题引出："><a href="#问题引出：" class="headerlink" title="问题引出："></a>问题引出：</h2><p>假如给出一组数组a[n],要求我们求出索引l到r的所有元素之和，其中0&lt;= l &lt;= r &lt;= n;另一个要求是，将数组的特定值修改为x。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>一种方法是进行从l到r的循环，计算给定范围的和，另外更新值只需要令a[i]=x即可。注意第一次操作的时间复杂度为O(n),第二次为O(1)。</p>
-<p>第二种方案为再创建一个数组，数组每个元素表示从0到索引i的所有元素的和。该方法计算求和的时间复杂度为O(1),但更新的时间复杂度却为O(n)。</p>
-<p>以上两种方案在元素个数不同的情况下各有利弊。而第三种方案<strong>线段树</strong>却可以在O(log n)的时间界内完成以上操作。</p>
-<h2 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h2><p>线段树在区间信息的维护和查询方面运用得十分广泛，得益于它比普通查询更加高效的查询方式。</p>
-<h2 id="线段树的表示形式"><a href="#线段树的表示形式" class="headerlink" title="线段树的表示形式"></a>线段树的表示形式</h2><p>一般而言，谈到树总会习惯性用链表指针的方式来建树表示节点的关系，但是在算法竞赛中，只要节点与节点的关系明晰，常常使用数组的方式来建树，这更容易理解和操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">表示方式：</span><br><span class="line">1、叶子节点是输入的元素的值</span><br><span class="line">2、每个非叶子节点代表也叶子节点的一些合并，代表该非叶子节点下的叶子节点之和。</span><br><span class="line">此处索引是从0开始。</span><br><span class="line">注意：除了最后一集外，每一级都填满。</span><br></pre></td></tr></table></figure>
-<p><img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/segment-tree1.png" alt="avatar"></p>
-<ul>
-<li>输入形式<blockquote>
-<p>输入数组{1、3、5、7、9、11}</p>
-<p>线段树数组st[]={36、9、27、4、5、16、11、1、3、NULL、NULL、7、9、NULL、NULL}</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="分配给段树的数组的总大小"><a href="#分配给段树的数组的总大小" class="headerlink" title="分配给段树的数组的总大小"></a>分配给段树的数组的总大小</h2><p>如果n是2的幂，则没有虚拟节点(空出来的节点),段树大小为2n-1。如果不是2<br>的幂次，则树的大小将为2x-1，其中x为大于n的2的最小幂。</p>
-<h2 id="查询给定范围"><a href="#查询给定范围" class="headerlink" title="查询给定范围"></a>查询给定范围</h2><ul>
-<li><p>求和算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int getSum(node,l，r)&#123;</span><br><span class="line">   if(节点在l、r之间)</span><br><span class="line">    return节点的值</span><br><span class="line">  else if(节点在l、r外面)</span><br><span class="line">    return 0</span><br><span class="line">  else</span><br><span class="line">    return getSum(node的左孩子,l,r)+getSum(node的右孩子,l,r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更新节点的值</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -935,7 +918,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -946,7 +929,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
