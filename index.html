@@ -173,6 +173,67 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/24/c-创建二位数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Meng_girl.jpg">
+      <meta itemprop="name" content="Rukawahe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog -Rukawahe">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/24/c-创建二位数组/" class="post-title-link" itemprop="url">c++创建二位数组</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-24 16:50:58 / 修改时间：17:53:08" itemprop="dateCreated datePublished" datetime="2020-02-24T16:50:58+08:00">2020-02-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="静态数组"><a href="#静态数组" class="headerlink" title="静态数组"></a>静态数组</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>数组是一种复合类型，因此在定义数组类型时必须显示定义数组的类型，不能使用auto关键字。静态数组定义形如：<strong>a[d]</strong>,a是数组名字，d是数组维度。维度说明数组大小，所有d&gt;0。同时数组维度必须是一个常量表达式(常量表达式是指不会改变且在编译过程就能得到计算结果的表达式)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">一维静态数组初始化：</span><br><span class="line">int a[10];</span><br><span class="line">int a[]=&#123;1,2,3,4,5&#125;;//如果进行初始化，则可不用指出维度</span><br><span class="line">int a[];  //error</span><br><span class="line"></span><br><span class="line">二维静态数组初始化:</span><br><span class="line">注意：在进行多维数组初始化话时，如果不进行初始化，则需要指出每个维度的大小；否则，可以不用指出最高维度的大小(即第一维度)</span><br><span class="line">int a[10][10];</span><br><span class="line">int a[][10]=&#123;0,1,2,3&#125;;</span><br><span class="line">int a[][10];//error</span><br></pre></td></tr></table></figure></p>
+<h3 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>不需要再编译时确定大小，再程序运行时确定大小，根据程序需要而灵活地分配大小，但是动态数组需要显示地释放内存。<br>动态数组进行内存分配的格式为new T[size]，size可以不是常量表达式；如下面的例子所示。<br><strong>一维动态数组：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int size=10;</span><br><span class="line"></span><br><span class="line">int *arr=(int*)malloc(sizeof(int)*100);//c方式</span><br><span class="line"></span><br><span class="line">int *arr=new int[size];//c++方式，未初始化</span><br><span class="line"></span><br><span class="line">int *arr=new int[size]();//默认初始化，里面值全部为零</span><br><span class="line"></span><br><span class="line">int *arr=new int[size]&#123;1,2,3,4,5,6&#125;;//显示初始化</span><br><span class="line"></span><br><span class="line">释放内存：</span><br><span class="line">delete []arr;</span><br><span class="line">释放一个动态数组时，或者说是指向数组的指针时，空括号是必须的。它告诉编译器，指针指向一个数组的第一个元素。</span><br><span class="line">delete释放数组是逆序进行的，最后一个元素被最先释放，第一个元素最后一个被释放。</span><br></pre></td></tr></table></figure></p>
+<p><strong>多维动态数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">以二维为例：</span><br><span class="line"></span><br><span class="line">        new方式：</span><br><span class="line">int col=3,row=3,MAXN=10;</span><br><span class="line"></span><br><span class="line">double **arr=new double*[row];//row行</span><br><span class="line">for(int i=0;i&lt;row;i++)&#123;</span><br><span class="line">    arr[i]=new int[col];//col列</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">释放内存：</span><br><span class="line">for(int i=0;i&lt;row;i++)&#123;</span><br><span class="line">    delete[] arr[i];</span><br><span class="line">&#125;</span><br><span class="line">delete[] arr;</span><br><span class="line">从最低维度开始释放，直到最高维度</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        用变量定义二维数组的长度方式：</span><br><span class="line">int len=100;</span><br><span class="line">int **arr=(int **)malloc(sizeof(int)*len);</span><br><span class="line">for(int i=0;i&lt;len;i++)&#123;</span><br><span class="line">    arr[i]=new int[col];//每一行申请col个int空间</span><br><span class="line">&#125;</span><br><span class="line">释放内存同上......</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/dp平行四边形优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-19 21:58:09" itemprop="dateModified" datetime="2020-02-19T21:58:09+08:00">2020-02-19</time>
+                <time title="修改时间：2020-02-24 17:53:18" itemprop="dateModified" datetime="2020-02-24T17:53:18+08:00">2020-02-24</time>
               </span>
 
           
@@ -795,79 +856,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Meng_girl.jpg">
-      <meta itemprop="name" content="Rukawahe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog -Rukawahe">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/05/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-05 16:57:14" itemprop="dateCreated datePublished" datetime="2019-11-05T16:57:14+08:00">2019-11-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2017-10-28 08:39:58" itemprop="dateModified" datetime="2017-10-28T08:39:58+08:00">2017-10-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -918,7 +906,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
