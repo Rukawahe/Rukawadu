@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-18T09:53:42.646Z</updated>
+  <updated>2020-03-18T10:10:29.611Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>dag模型</title>
     <link href="http://yoursite.com/2020/03/18/dag%E6%A8%A1%E5%9E%8B/"/>
     <id>http://yoursite.com/2020/03/18/dag模型/</id>
     <published>2020-03-18T09:43:28.144Z</published>
-    <updated>2020-03-18T09:53:42.646Z</updated>
+    <updated>2020-03-18T10:10:29.611Z</updated>
     
     <content type="html"><![CDATA[<p>关于dag模型紫书也介绍了不少，总结如下：<br>dag最长路(短)路的特殊性，有两种”对称”的状态定义方式：</p><blockquote><p>状态1：设d(i)为从i出发的最长路，则d(i)=max{d(j)+1|(i,j)∈E}<br>状态2：设d(i)为从i结束的最长路，则d(i)=max{d(j)+1|(j,i)∈E}<br>另外一般使用状态2不容易反推，建议使用刷表法</p></blockquote><p>例题：UVa437</p><blockquote><p>给n个立方体，给出长宽高XYZ。现在希望你将这些立方题叠起来，使得最后的高度最大，并且这些立方体是可以无限次使用的，但是一个立方体要在另一个立方体的上面的话是需要满足这个立方体的底面是可以完全包含在下面的那个立方体的底面。</p></blockquote><blockquote><p>分析：这就是个dag模型，嵌套模型。<br>注意本题中x,y,z均可以作为高，所以有3*n状态<br>状态转移方程为：<br>d(i)=max{d(j)+(i号长方体的高） | (i,j)∈E }<br>状态总数为n，每个状态的决策数为n，总时间复杂度为O(n²) </p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">AC code:</span><br><span class="line">#include&lt;iostream&gt;//dag模型</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int MAXN=90+5;</span><br><span class="line">int d[MAXN],n;</span><br><span class="line">struct Node&#123;</span><br><span class="line">    int x,y,z;</span><br><span class="line">&#125;;</span><br><span class="line">Node arr[MAXN];</span><br><span class="line">int dp(int i)&#123;</span><br><span class="line">    int &amp;ans=d[i];</span><br><span class="line">    if(ans&gt;0)   return ans;</span><br><span class="line">    ans=arr[i].z;//首先等于长方体的高</span><br><span class="line">    for(int j=0;j&lt;3*n;j++)</span><br><span class="line">        if((arr[i].x&gt;arr[j].x &amp;&amp; arr[i].y&gt;arr[j].y) || (arr[i].x&gt;arr[j].y &amp;&amp; arr[i].y&gt;arr[j].x ))</span><br><span class="line">            ans=max(ans,dp(j)+arr[i].z);</span><br><span class="line">    return ans;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    int ans=0;</span><br><span class="line">    memset(d,0,sizeof(d));</span><br><span class="line">    for(int i=0;i&lt;3*n;i+=3)&#123;</span><br><span class="line">        int x,y,z;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;</span><br><span class="line">        //注意这里有三种摆放方式</span><br><span class="line">        arr[i].x=x;arr[i].y=y;arr[i].z=z;//分别(x,y,z)为高</span><br><span class="line">        arr[i+1].x=x;arr[i+1].y=z;arr[i+1].z=y;</span><br><span class="line">        arr[i+2].x=y;arr[i+2].y=z;arr[i+2].z=x;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;3*n;i++)</span><br><span class="line">        ans=max(ans,dp(i));</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -38,16 +38,16 @@
     
     
     
-      <category term="dp" scheme="http://yoursite.com/tags/dp/"/>
+      <category term="dp动态规划" scheme="http://yoursite.com/tags/dp%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
   <entry>
-    <title></title>
+    <title>dp填表法和刷表法</title>
     <link href="http://yoursite.com/2020/03/17/dp%E5%88%B7%E8%A1%A8%E6%B3%95%E5%92%8C%E5%A1%AB%E8%A1%A8%E6%B3%95/"/>
     <id>http://yoursite.com/2020/03/17/dp刷表法和填表法/</id>
     <published>2020-03-17T09:51:06.907Z</published>
-    <updated>2020-03-18T09:53:49.622Z</updated>
+    <updated>2020-03-18T10:09:49.922Z</updated>
     
     <content type="html"><![CDATA[<p>紫书里dp中简单介绍了下”填表法”和”刷表法”</p><blockquote><p>填表法：对于每个状态i,计算f(i),其实就是根据状态方程从<strong>之前点</strong>推导出来</p></blockquote><blockquote><p>刷表法：对于每个状态i,<strong>更新f(i)所影响到的状态</strong>，注意只有当每个状态所依赖的状态对它的影响相互独立才能用刷表法。<br>利用当前推关联，利用刷表法较为便捷，向上边界较容易处理，处理在本次循环中的影响</p></blockquote><p>比如dag模型中的硬币问题：</p><blockquote><p>状态：设d(i)为以i结束的最长路，则d(i)=max{d(j)+1}|(j,i)属于E} ,对应每个顶点i，可能有多个边，同时枚举边(i,j),然后更新d[j]=max(d[j],d[i]+1),每个d(i)可能对应着多个d(j)。</p></blockquote>]]></content>
     
@@ -66,6 +66,8 @@
     </summary>
     
     
+    
+      <category term="dp动态规划" scheme="http://yoursite.com/tags/dp%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -118,11 +120,11 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>WAN</title>
     <link href="http://yoursite.com/2020/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     <id>http://yoursite.com/2020/02/14/计算机网络/</id>
     <published>2020-02-14T03:15:09.666Z</published>
-    <updated>2020-02-24T09:53:18.166Z</updated>
+    <updated>2020-03-18T10:08:58.971Z</updated>
     
     <content type="html"><![CDATA[<p>一些概念：</p><h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN:"></a>WAN:</h2><p>A wide area network (WAN) is a telecommunications network that extends over a large geographical area for the primary purpose of computer networking.广域网（WAN）是一个电信网络上延伸为的主要目的一个大的地理区域的计算机网络。广域网通常通过租用的电信线路来建立。<br>Similar types of networks are personal area networks (PANs), local area networks (LANs), campus area networks (CANs), or metropolitan area networks (MANs) which are usually limited to a room, building, campus or specific metropolitan area, respectively.<br>类似类型的网络是个人区域网络（PAN），局域网（LAN），园区网络（CAN）或城域网（MAN），它们通常分别限于房间，建筑物，校园或特定的城域。</p><p><strong>举个简单例子：</strong><br><img src="http.png" alt="alt text" title="Title"></p><p>假如我想在我的电脑看youtube,当我在浏览器点击 <a href="http://www.youtube.com,我的电脑服务器会发送一个http请求到达youtube公共服务器，公共服务器接收到请求后会返回一个HTMLFile文件，然后用户在电脑上就会看到youtube上的信息。" target="_blank" rel="noopener">www.youtube.com,我的电脑服务器会发送一个http请求到达youtube公共服务器，公共服务器接收到请求后会返回一个HTMLFile文件，然后用户在电脑上就会看到youtube上的信息。</a></p>]]></content>
     
@@ -137,6 +139,8 @@
     </summary>
     
     
+    
+      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   

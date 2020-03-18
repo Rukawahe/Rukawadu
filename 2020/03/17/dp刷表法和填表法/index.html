@@ -52,15 +52,16 @@
 </script>
 
   <meta name="description" content="紫书里dp中简单介绍了下”填表法”和”刷表法”  填表法：对于每个状态i,计算f(i),其实就是根据状态方程从之前点推导出来   刷表法：对于每个状态i,更新f(i)所影响到的状态，注意只有当每个状态所依赖的状态对它的影响相互独立才能用刷表法。利用当前推关联，利用刷表法较为便捷，向上边界较容易处理，处理在本次循环中的影响  比如dag模型中的硬币问题：  状态：设d(i)为以i结束的最长路，则d(">
+<meta name="keywords" content="dp动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBlog -Rukawahe">
+<meta property="og:title" content="dp填表法和刷表法">
 <meta property="og:url" content="http://yoursite.com/2020/03/17/dp刷表法和填表法/index.html">
 <meta property="og:site_name" content="MyBlog -Rukawahe">
 <meta property="og:description" content="紫书里dp中简单介绍了下”填表法”和”刷表法”  填表法：对于每个状态i,计算f(i),其实就是根据状态方程从之前点推导出来   刷表法：对于每个状态i,更新f(i)所影响到的状态，注意只有当每个状态所依赖的状态对它的影响相互独立才能用刷表法。利用当前推关联，利用刷表法较为便捷，向上边界较容易处理，处理在本次循环中的影响  比如dag模型中的硬币问题：  状态：设d(i)为以i结束的最长路，则d(">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-18T09:53:49.622Z">
+<meta property="og:updated_time" content="2020-03-18T10:09:49.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBlog -Rukawahe">
+<meta name="twitter:title" content="dp填表法和刷表法">
 <meta name="twitter:description" content="紫书里dp中简单介绍了下”填表法”和”刷表法”  填表法：对于每个状态i,计算f(i),其实就是根据状态方程从之前点推导出来   刷表法：对于每个状态i,更新f(i)所影响到的状态，注意只有当每个状态所依赖的状态对它的影响相互独立才能用刷表法。利用当前推关联，利用刷表法较为便捷，向上边界较容易处理，处理在本次循环中的影响  比如dag模型中的硬币问题：  状态：设d(i)为以i结束的最长路，则d(">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/dp刷表法和填表法/">
@@ -77,7 +78,7 @@
   };
 </script>
 
-  <title> | MyBlog -Rukawahe</title>
+  <title>dp填表法和刷表法 | MyBlog -Rukawahe</title>
   
 
 
@@ -190,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          dp填表法和刷表法
         </h1>
 
         <div class="post-meta">
@@ -207,7 +208,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-18 17:53:49" itemprop="dateModified" datetime="2020-03-18T17:53:49+08:00">2020-03-18</time>
+                <time title="修改时间：2020-03-18 18:09:49" itemprop="dateModified" datetime="2020-03-18T18:09:49+08:00">2020-03-18</time>
               </span>
 
           
@@ -240,6 +241,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dp动态规划/" rel="tag"># dp动态规划</a>
+          </div>
 
         
 
@@ -253,8 +257,8 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2020/03/18/dag模型/" rel="prev" title="">
-                   <i class="fa fa-chevron-right"></i>
+                <a href="/2020/03/18/dag模型/" rel="prev" title="dag模型">
+                  dag模型 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -320,7 +324,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
