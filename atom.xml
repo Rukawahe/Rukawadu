@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-24T09:53:08.841Z</updated>
+  <updated>2020-03-18T09:53:42.646Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2020/03/18/dag%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://yoursite.com/2020/03/18/dag模型/</id>
+    <published>2020-03-18T09:43:28.144Z</published>
+    <updated>2020-03-18T09:53:42.646Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于dag模型紫书也介绍了不少，总结如下：<br>dag最长路(短)路的特殊性，有两种”对称”的状态定义方式：</p><blockquote><p>状态1：设d(i)为从i出发的最长路，则d(i)=max{d(j)+1|(i,j)∈E}<br>状态2：设d(i)为从i结束的最长路，则d(i)=max{d(j)+1|(j,i)∈E}<br>另外一般使用状态2不容易反推，建议使用刷表法</p></blockquote><p>例题：UVa437</p><blockquote><p>给n个立方体，给出长宽高XYZ。现在希望你将这些立方题叠起来，使得最后的高度最大，并且这些立方体是可以无限次使用的，但是一个立方体要在另一个立方体的上面的话是需要满足这个立方体的底面是可以完全包含在下面的那个立方体的底面。</p></blockquote><blockquote><p>分析：这就是个dag模型，嵌套模型。<br>注意本题中x,y,z均可以作为高，所以有3*n状态<br>状态转移方程为：<br>d(i)=max{d(j)+(i号长方体的高） | (i,j)∈E }<br>状态总数为n，每个状态的决策数为n，总时间复杂度为O(n²) </p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">AC code:</span><br><span class="line">#include&lt;iostream&gt;//dag模型</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int MAXN=90+5;</span><br><span class="line">int d[MAXN],n;</span><br><span class="line">struct Node&#123;</span><br><span class="line">    int x,y,z;</span><br><span class="line">&#125;;</span><br><span class="line">Node arr[MAXN];</span><br><span class="line">int dp(int i)&#123;</span><br><span class="line">    int &amp;ans=d[i];</span><br><span class="line">    if(ans&gt;0)   return ans;</span><br><span class="line">    ans=arr[i].z;//首先等于长方体的高</span><br><span class="line">    for(int j=0;j&lt;3*n;j++)</span><br><span class="line">        if((arr[i].x&gt;arr[j].x &amp;&amp; arr[i].y&gt;arr[j].y) || (arr[i].x&gt;arr[j].y &amp;&amp; arr[i].y&gt;arr[j].x ))</span><br><span class="line">            ans=max(ans,dp(j)+arr[i].z);</span><br><span class="line">    return ans;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    int ans=0;</span><br><span class="line">    memset(d,0,sizeof(d));</span><br><span class="line">    for(int i=0;i&lt;3*n;i+=3)&#123;</span><br><span class="line">        int x,y,z;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;</span><br><span class="line">        //注意这里有三种摆放方式</span><br><span class="line">        arr[i].x=x;arr[i].y=y;arr[i].z=z;//分别(x,y,z)为高</span><br><span class="line">        arr[i+1].x=x;arr[i+1].y=z;arr[i+1].z=y;</span><br><span class="line">        arr[i+2].x=y;arr[i+2].y=z;arr[i+2].z=x;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;3*n;i++)</span><br><span class="line">        ans=max(ans,dp(i));</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;关于dag模型紫书也介绍了不少，总结如下：&lt;br&gt;dag最长路(短)路的特殊性，有两种”对称”的状态定义方式：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;状态1：设d(i)为从i出发的最长路，则d(i)=max{d(j)+1|(i,j)∈E}&lt;br&gt;状态2：设d(i)为从i结
+      
+    
+    </summary>
+    
+    
+    
+      <category term="dp" scheme="http://yoursite.com/tags/dp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2020/03/17/dp%E5%88%B7%E8%A1%A8%E6%B3%95%E5%92%8C%E5%A1%AB%E8%A1%A8%E6%B3%95/"/>
+    <id>http://yoursite.com/2020/03/17/dp刷表法和填表法/</id>
+    <published>2020-03-17T09:51:06.907Z</published>
+    <updated>2020-03-18T09:53:49.622Z</updated>
+    
+    <content type="html"><![CDATA[<p>紫书里dp中简单介绍了下”填表法”和”刷表法”</p><blockquote><p>填表法：对于每个状态i,计算f(i),其实就是根据状态方程从<strong>之前点</strong>推导出来</p></blockquote><blockquote><p>刷表法：对于每个状态i,<strong>更新f(i)所影响到的状态</strong>，注意只有当每个状态所依赖的状态对它的影响相互独立才能用刷表法。<br>利用当前推关联，利用刷表法较为便捷，向上边界较容易处理，处理在本次循环中的影响</p></blockquote><p>比如dag模型中的硬币问题：</p><blockquote><p>状态：设d(i)为以i结束的最长路，则d(i)=max{d(j)+1}|(j,i)属于E} ,对应每个顶点i，可能有多个边，同时枚举边(i,j),然后更新d[j]=max(d[j],d[i]+1),每个d(i)可能对应着多个d(j)。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;紫书里dp中简单介绍了下”填表法”和”刷表法”&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;填表法：对于每个状态i,计算f(i),其实就是根据状态方程从&lt;strong&gt;之前点&lt;/strong&gt;推导出来&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;刷表法：
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>c++创建二位数组</title>
@@ -140,7 +193,7 @@
     <link href="http://yoursite.com/2019/12/17/DFS%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
     <id>http://yoursite.com/2019/12/17/DFS深度优先搜索/</id>
     <published>2019-12-17T08:35:04.000Z</published>
-    <updated>2020-02-19T13:58:12.069Z</updated>
+    <updated>2020-03-18T10:01:06.164Z</updated>
     
     <content type="html"><![CDATA[<h1 id="DFS深度优先搜索"><a href="#DFS深度优先搜索" class="headerlink" title="DFS深度优先搜索"></a>DFS深度优先搜索</h1><p>（话说很久没更新了…最近在摸鱼）</p><p>dfs 是一种搜索手段。可以理解为：它从某个位置（起点）开始，沿着一条路不断地向前走直到尽头，然后退后一步，去走其它没走过的路，没有的话，再退后一步，再去选择，直到找到目的地（终点）。例如下图：从A（起点）开始走，先走ABD在D处发现没有子节点，推后到节点B，去走EG到节点G发现又到了尽头，然后退一步到节点E，发现节点E没有右节点再退到节点B，发现B的左右节点都走过了，再退到节点A，去走AC节点C没有左子树，走右子树F，F是尽头，退到C，退到A，返回。</p><p><img src="DFS.png" alt="alt text" title="Title"></p><p><strong>DFS属于盲目搜索,最糟糕的情况算法时间复杂度为O(!n)。</strong></p><p><strong>DFS算法框架</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">该DFS 框架以2D 坐标范围为例，来体现DFS 算法的实现思想。</span><br><span class="line">*/</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn=100;</span><br><span class="line">bool vst[maxn][maxn]; // 访问标记</span><br><span class="line">int map[maxn][maxn]; // 坐标范围</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;; // 方向向量，(x,y)周围的四个方向</span><br><span class="line"></span><br><span class="line">bool CheckEdge(int x,int y) // 边界条件和约束条件的判断</span><br><span class="line">&#123;</span><br><span class="line">    if(!vst[x][y] &amp;&amp; ...) // 满足条件</span><br><span class="line">        return 1;</span><br><span class="line">    else // 与约束条件冲突</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">    vst[x][y]=1; // 标记该节点被访问过</span><br><span class="line">    if(map[x][y]==G) // 出现目标态G</span><br><span class="line">    &#123;</span><br><span class="line">        ...... // 做相应处理</span><br><span class="line">    return;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;4;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(CheckEdge(x+dir[i][0],y+dir[i][1])) // 按照规则生成下一个节点</span><br><span class="line">        dfs(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return; // 没有下层搜索节点，回溯</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">题：1代表墙壁，0代表路，求给定数据中从某点出发得到的最大路径途径</span><br><span class="line">如给定数据：</span><br><span class="line">1 0 1 1 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">1 1 0 0 0</span><br><span class="line">1 0 0 1 1</span><br><span class="line">0 0 1 0 0</span><br><span class="line">代码实现：</span><br><span class="line">#include&lt;iostream&gt;//求能找到的区域</span><br><span class="line">#include&lt;cstring&gt;//包含memset()函数</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int ans=0;//记录步数</span><br><span class="line">const int MAXN=100;</span><br><span class="line">bool visited[MAXN][MAXN];</span><br><span class="line">int map[MAXN][MAXN];</span><br><span class="line">int dir[4][2]=&#123;0,1,0,-1,1,0,-1,0&#125;;//位置移动数组</span><br><span class="line"></span><br><span class="line">bool checkEdg(int x,int y)&#123;</span><br><span class="line">    if(!visited[x][y] &amp;&amp; map[x][y]==0 &amp;&amp; x&gt;=0 &amp;&amp; x&lt;5 &amp;&amp; y&gt;=0 &amp;&amp; y&lt;=5)//当前节点没被访问过</span><br><span class="line">        return true;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">void DFS(int x,int y)&#123;</span><br><span class="line">    visited[x][y]=true;</span><br><span class="line">    for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">        if(checkEdg(x+dir[i][0],y+dir[i][1]))&#123;//按照规则继续生成下一个节点</span><br><span class="line">            DFS(x+dir[i][0],y+dir[i][1]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return;//没有下一层节点，回溯</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    memset(map,-1,sizeof(map));</span><br><span class="line">    memset(visited,false,sizeof(visited));</span><br><span class="line"></span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            cin&gt;&gt;map[i][j];</span><br><span class="line">    DFS(0,1);//可以选择从任意某个“路口”初始化，但得到的结果是仅从该点出发得到的最大路径</span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">        for(int j=0;j&lt;m;j++)</span><br><span class="line">            if(visited[i][j])&#123;</span><br><span class="line">                cout&lt;&lt;&quot;i:&quot;&lt;&lt;i&lt;&lt;&quot; j:&quot;&lt;&lt;j&lt;&lt;endl;</span><br><span class="line">                ans++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">    cout&lt;&lt;&quot;the max path：&quot;&lt;&lt;ans;</span><br><span class="line">    return 0; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">**输出结果**</span><br><span class="line">i:0 j:1</span><br><span class="line">i:1 j:1</span><br><span class="line">i:1 j:2</span><br><span class="line">i:2 j:2</span><br><span class="line">i:2 j:3</span><br><span class="line">i:2 j:4</span><br><span class="line">i:3 j:1</span><br><span class="line">i:3 j:2</span><br><span class="line">i:4 j:0</span><br><span class="line">i:4 j:1</span><br><span class="line">the max path：10</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -450,60 +503,6 @@
     
     
       <category term="指针 const关键字" scheme="http://yoursite.com/tags/%E6%8C%87%E9%92%88-const%E5%85%B3%E9%94%AE%E5%AD%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搭建个人博客</title>
-    <link href="http://yoursite.com/2019/09/01/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2019/09/01/搭建个人博客/</id>
-    <published>2019-09-01T08:26:09.000Z</published>
-    <updated>2019-11-06T07:49:57.902Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么不使用一些知名博客网站写博客？"><a href="#为什么不使用一些知名博客网站写博客？" class="headerlink" title="为什么不使用一些知名博客网站写博客？"></a><strong>为什么不使用一些知名博客网站写博客？</strong></h2><p>虽然市场上有很多优秀的平台，例如csdn、博客园等优秀平台，但是本人使用github开源网站频数较多，所以采用github部署博客的形式。其次，github搭建博客，整个博客的设计可以自己设计，其中涉及到大量的前端知识和其他知识，这是个学以致用的方式。</p><h2 id="工具的选择"><a href="#工具的选择" class="headerlink" title="工具的选择"></a><strong>工具的选择</strong></h2><p><strong>Atom编辑器+git本地+github远端+Hexo博客框架</strong><br>(本人现在使用vscode进行文字编辑，相应的markdown语法插件vscode早早配置好了…真香)</p><p>现在网上编辑文字的语言仅仅是支持Markdown语法的，Markdown语法也是很好学的，语法形式简单易懂。<strong>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</strong></p><p>git作为版本控制工具，采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。同时，使用几条简单的hexo指令和git指令就可以从本地提交自己的项目、文档、源代码等到远端，这是非常迅速的。</p><p>github远端这个就不用多说了吧，可以在远端看自己的记录。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;h2 id=&quot;为什么不使用一些知名博客网站写博客？&quot;&gt;&lt;a href=&quot;#为什么不使用一些知名博客网站写博客？&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-    
-      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="github" scheme="http://yoursite.com/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于哈希表</title>
-    <link href="http://yoursite.com/2019/08/30/%E5%93%88%E5%B8%8C%E8%A1%A8%E5%88%9D%E6%AD%A5/"/>
-    <id>http://yoursite.com/2019/08/30/哈希表初步/</id>
-    <published>2019-08-29T18:09:05.000Z</published>
-    <updated>2020-02-24T09:53:31.421Z</updated>
-    
-    <content type="html"><![CDATA[<p>在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，<br>再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。</p><p>单独链接</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、链接更容易实现。</span><br><span class="line">2、在链接中，哈希表永远不会填满。</span><br><span class="line">3、当不知道可以插入或者删除多少个密匙和多少频率时，通常使用链接。</span><br><span class="line">4、链接的缓存性能不佳，容易浪费空间。</span><br></pre></td></tr></table></figure><p>开放式寻址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、开放式寻址需要更多的计算，同时表可能已满。</span><br><span class="line">2、开放式寻址需要格外的小心，以避免聚类和负载因子。</span><br><span class="line">3、当知道键的频率和数量时，使用开放式寻址。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、线性探测具有最佳的缓存性能，但是受到群集的影响，线性探测的另一优点是易于计算。</span><br><span class="line">2、在缓存性能方面，二次探测介于二者之间。</span><br><span class="line">3、双散列具有较差的缓存性能，但是没有群集。双散列需要更多的计算时间，因为需要计算两个散列函数。</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在哈希表中，存储方式有两种。一种是单独链接，另一种是开放式寻址空间。而当哈希表中某一位置已经被插入时，&lt;br&gt;再次插入不能是相同位置，解决这种冲突的方式有线性探测、二次探测和随机探测。&lt;/p&gt;
-&lt;p&gt;单独链接&lt;/p&gt;
-&lt;figure class=&quot;highlight pla
-      
-    
-    </summary>
-    
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
